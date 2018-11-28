@@ -20,8 +20,9 @@ for flight in data:
         latitude = flight['geography']['latitude']
         longitude = flight['geography']['longitude']
         direction = flight['geography']['direction']
-        speed = round(flight['speed']['horizontal'] * 0.621371, 1)        # converting from km/h to mp/h
+        speed = round(flight['speed']['horizontal'] * 0.621371, 1)        # converting from km/h to mph
         airline = flight['airline']['iataCode']
+        flight_num = flight['flight']['number']
         model = flight['aircraft']['iataCode']
         source = flight['departure']['iataCode']
         destination = flight['arrival']['iataCode']
@@ -34,8 +35,8 @@ for flight in data:
         # print("GEO: ", flight['geography'])
         # print("SPD: ", flight['speed'])
 
-        sql = "INSERT INTO flight(aircraft_id, altitude, latitude, longitude, direction, speed, airline, model, source, destination) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
-        cursor.execute(sql, (aircraft_id, altitude, latitude, longitude, direction, speed, airline, model, source, destination))
+        sql = "INSERT INTO flight(aircraft_id, altitude, latitude, longitude, direction, speed, airline, flight_num, model, source, destination) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+        cursor.execute(sql, (aircraft_id, altitude, latitude, longitude, direction, speed, airline, flight_num, model, source, destination))
 
         connection.commit()
         counter += 1
