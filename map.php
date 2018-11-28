@@ -119,6 +119,7 @@ $conn->close();
       table#t01 th {
           background-color: black;
           color: white;
+          width: 0.5%;
       }
     </style>
   </head>
@@ -146,7 +147,6 @@ $conn->close();
         anchor: new google.maps.Point(400, 400)	
       };
       var marker, i;
-      var bounds = new google.maps.LatLngBounds();
       for(i = 0; i < locations.length; i++){
           if(i > 0){
             marker = new google.maps.Marker({
@@ -163,9 +163,7 @@ $conn->close();
                 map: map
             });
           }
-          bounds.extend(marker.getPosition());
       }
-      map.fitBounds(bounds);
     };
     var names = [
         "<?php echo $aircraft_id?>",

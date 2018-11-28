@@ -66,6 +66,7 @@ echo "<center><h1> Airport </h1>";
       table#t01 th {
           background-color: black;
           color: white;
+          width: 0.5%;
       }
     </style>
   </head>
