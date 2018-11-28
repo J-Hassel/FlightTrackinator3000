@@ -18,7 +18,7 @@ for flight in data:
         aircraft_id = flight['aircraft']['regNumber']
         altitude = round(flight['geography']['altitude'] * 3.28084, 1)    # converting from m to ft
         latitude = flight['geography']['latitude']
-        longitude = flight['geography']['latitude']
+        longitude = flight['geography']['longitude']
         direction = flight['geography']['direction']
         speed = round(flight['speed']['horizontal'] * 0.621371, 1)        # converting from km/h to mp/h
         airline = flight['airline']['iataCode']
