@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+?>
+      <div class="page-header">
+        <p>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</p>
+            <p>
+        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
+    </p>
+    </div>
+
+<?php
 //header("Refresh:30");
 header("Content-Type: text/html;charset=UTF-8");
 $servername = "localhost";
@@ -29,6 +47,10 @@ echo "<center><h1> Airport </h1>";
 ?>
 <html>
   <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <style type="text/css">
+        body{ font: 14px sans-serif; text-align: right; }
+    </style>
     <style>
       /* Set the size of the div element that contains the map */
       #map {
