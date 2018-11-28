@@ -42,8 +42,14 @@ function mysqli_field_name($result, $field_offset)
     return is_object($properties) ? $properties->name : null;
 }
 
+// Display name of airport
 $iataCode = $_GET['iataCode'];
-echo "<center><h1> Airport </h1>";
+$sql = "SELECT * FROM airport WHERE iataCode = '$iataCode'";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$airport = $row[mysqli_field_name($result, 0)];
+echo "<center><h1> $airport </h1>";
+
 ?>
 <html>
   <head>
@@ -51,6 +57,8 @@ echo "<center><h1> Airport </h1>";
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: right; }
     </style>
+    <a href="index.php" class="btn btn-success">Home</a>
+    <br> <br>
     <style>
       /* Set the size of the div element that contains the map */
       #map {

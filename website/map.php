@@ -47,7 +47,7 @@ $aircraft_id = $_GET['aircraft_id'];
 $sql = "SELECT * FROM flight WHERE aircraft_id = '$aircraft_id'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
-  echo "<center><h1> Flight </h1>";
+  echo "<center><h1> $aircraft_id </h1>";
   $count = mysqli_field_count($conn);
   $header = "<table id='t01'><tr>";
   for($x = 0; $x < $count; $x++){
@@ -59,7 +59,16 @@ if ($result->num_rows > 0) {
    while($row = $result->fetch_assoc()) {
       $line = "<tr>";
       for($x = 0; $x < $count; $x++){
-        $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
+        if(mysqli_field_name($result, $x) == "destination"){
+            $variable = $row[mysqli_field_name($result, $x)];
+            $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
+        } else if(mysqli_field_name($result, $x) == "source"){
+            $variable = $row[mysqli_field_name($result, $x)];
+            $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
+        }
+        else {
+            $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
+        }
       }
       echo utf8_encode($line)."</tr>";
       $latitude = $row['latitude'];
@@ -103,12 +112,13 @@ $conn->close();
     </style>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <a href="index.php" class="btn btn-success">Home</a>
+    <br><br>
     <style>
       /* Set the size of the div element that contains the map */
       #map {
         margin: auto;
         height: 600px;  /* The height is 400 pixels */
-        width: 85%;  /* The width is the width of the web page */
+        width: 100%;  /* The width is the width of the web page */
        }
        table#t01 tr:nth-child(even) {
           background-color: #eee;
@@ -124,7 +134,6 @@ $conn->close();
     </style>
   </head>
   <body>
-    <h3> <?php echo $aircraft_id?> </h3>
     <!--The div element for the map -->
     <div id="map"></div>
     <script>
