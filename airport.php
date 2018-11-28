@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
-$output = shell_exec("python flight_parser.py");
-header("Refresh:30");
+//header("Refresh:30");
 header("Content-Type: text/html;charset=UTF-8");
 $servername = "localhost";
 $username = "root";
@@ -26,10 +25,36 @@ function mysqli_field_name($result, $field_offset)
 }
 
 $iataCode = $_GET['iataCode'];
+echo "<center><h1> Airport </h1>";
+?>
+<html>
+  <head>
+    <style>
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 600px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+      table#t01 tr:nth-child(even) {
+          background-color: #eee;
+      }
+      table#t01 tr:nth-child(odd) {
+         background-color: #fff;
+      }
+      table#t01 th {
+          background-color: black;
+          color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <h3> <?php echo $iataCode?> </h3>
+<?php    
 $sql = "SELECT * FROM airport WHERE iataCode = '$iataCode'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
-  echo "<center><h1> Airport </h1>";
   $count = mysqli_field_count($conn);
   $header = "<table id='t01'><tr>";
   for($x = 0; $x < $count; $x++){
@@ -66,15 +91,15 @@ if ($result->num_rows > 0) {
               for($x = 0; $x < $count; $x++){
                 if(mysqli_field_name($from, $x) == "destination"){
                     $variable = $row[mysqli_field_name($from, $x)];
-                    $line = $line . "<td><a href=\"airport.php?iataCode=$variable\">" . $variable . "</a></td>";
+                    $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
                 }else if(mysqli_field_name($from, $x) == "aircraft_id"){
                     $variable = $row[mysqli_field_name($from, $x)];
-                    $line = $line . "<td><a href=\"map.php?aircraft_id=$variable\">" . $variable . "</a></td>";
+                    $line = $line . "<td><a href='map.php?aircraft_id=$variable'>" . $variable . "</a></td>";
                 }else{
                     $line = $line . "<td>" . $row[mysqli_field_name($from, $x)] . "</td>";
                 }
               }
-              array_push($locs, array($row["latitude"],$row["longitude"], $row['aircraft_id'], $row['direction']));
+              array_push($locs, array($row["latitude"],$row["longitude"], $row['aircraft_id'], $row['direction'], $header . $line . "</tr></table>"));
               echo utf8_encode($line)."</tr>";
         }
         echo "</table>";
@@ -97,15 +122,15 @@ if ($result->num_rows > 0) {
               for($x = 0; $x < $count; $x++){
                 if(mysqli_field_name($to, $x) == "source"){
                     $variable = $row[mysqli_field_name($to, $x)];
-                    $line = $line . "<td><a href=\"airport.php?iataCode=$variable\">" . $variable . "</a></td>";
+                    $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
                 }else if(mysqli_field_name($to, $x) == "aircraft_id"){
                     $variable = $row[mysqli_field_name($to, $x)];
-                    $line = $line . "<td><a href=\"map.php?aircraft_id=$variable\">" . $variable . "</a></td>";
+                    $line = $line . "<td><a href='map.php?aircraft_id=$variable'>" . $variable . "</a></td>";
                 }else{
                     $line = $line . "<td>" . $row[mysqli_field_name($to, $x)] . "</td>";
                 }
               }
-            array_push($locs, array($row["latitude"],$row["longitude"], $row['aircraft_id'], $row['direction']));
+            array_push($locs, array($row["latitude"],$row["longitude"], $row['aircraft_id'], $row['direction'], $header . $line . "</tr></table>"));
               echo utf8_encode($line)."</tr>";
         }
         echo "</table>";
@@ -121,30 +146,6 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-<html>
-  <head>
-    <style>
-      /* Set the size of the div element that contains the map */
-      #map {
-        height: 600px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
-      table#t01 tr:nth-child(even) {
-          background-color: #eee;
-      }
-      table#t01 tr:nth-child(odd) {
-         background-color: #fff;
-      }
-      table#t01 th {
-          background-color: black;
-          color: white;
-      }
-    </style>
-  </head>
-  <body>
-    <h3> <?php echo $iataCode?> </h3>
-    <!--The div element for the map -->
-    <div id="map"></div>
     <script>
     function initMap() {
       var latitude = "<?php echo $latitude ?>";
@@ -164,7 +165,7 @@ $conn->close();
         strokeWeight: 1,
         anchor: new google.maps.Point(400, 400)	
       };
-      var marker, i;
+      var infoWindow = new google.maps.InfoWindow(), marker, i;
       for(i = 0; i < locations.length; i++){
           if(i == 0){
             marker = new google.maps.Marker({
@@ -181,6 +182,13 @@ $conn->close();
                 map: map
             });
           }
+          
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(infoWindowContent[i]);
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
       }
     };
     
@@ -196,16 +204,17 @@ $conn->close();
         parseFloat("<?php echo $longitude; ?>")
     ];
     var locations = [
-        //{lat: parseFloat("<?php echo $latitude ?>"), lng: parseFloat("<?php echo $longitude ?>")}
         temp
-    ]
-    
+    ];
+    var infoWindowContent = [
+        "<?php echo $iataCode; ?>"
+    ];
     
     <?php foreach($locs as $key => $val){ ?>
-        //locations.push({lat: parseFloat('<?php echo $val[0]; ?>'), lng: parseFloat('<?php echo $val[1]; ?>')});
         locations.push([parseFloat('<?php echo $val[0]; ?>'),parseFloat('<?php echo $val[1]; ?>')]);
         names.push('<?php echo $val[2]; ?>');
         headings.push('<?php echo $val[3]; ?>');
+        infoWindowContent.push("<?php echo $val[4]; ?>");
     <?php } ?>
         
 
@@ -216,3 +225,6 @@ $conn->close();
     </script>
   </body>
 </html>
+<?php 
+//system("START /B python flight_parser.py > temp.txt");
+?>

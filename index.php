@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
-$output = shell_exec("python flight_parser.py");
+//$output = shell_exec("python flight_parser.py");
 header("Content-Type: text/html;charset=UTF-8");
 $servername = "localhost";
 $username = "root";
@@ -95,6 +95,9 @@ function build_table($result, $conn, $table_name){
             if(mysqli_field_name($result, $x) == $headVal){
                $aircraftID = $row[mysqli_field_name($result, $x)];
                $line = $line . "<td><a href=\"$page?$var=$aircraftID\">" . $row[mysqli_field_name($result, $x)] . "</a></td>";
+            }else if($table_name == "flight" and (mysqli_field_name($result, $x) == "source" OR mysqli_field_name($result, $x) == "destination")){
+               $iataCode = $row[mysqli_field_name($result, $x)];
+               $line = $line . "<td><a href=\"airport.php?iataCode=$iataCode\">" . $row[mysqli_field_name($result, $x)] . "</a></td>";
             }else{
                $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
             }

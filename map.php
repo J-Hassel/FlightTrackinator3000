@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
-$output = shell_exec("python flight_parser.py");
-header("Refresh:30");
+//$output = shell_exec("python flight_parser.py");
+//header("Refresh:30");
 header("Content-Type: text/html;charset=UTF-8");
 $servername = "localhost";
 $username = "root";
