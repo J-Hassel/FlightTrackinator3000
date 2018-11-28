@@ -6,6 +6,11 @@ $username = "root";
 $password = "";
 $dbname = "flighttrackinator3000";
 
+$srcLat = "";
+$srcLng = "";
+$dstLat = "";
+$dstLng= "";
+
 // Establish
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -39,8 +44,29 @@ if ($result->num_rows > 0) {
       echo utf8_encode($line)."</tr>";
       $latitude = $row['latitude'];
       $longitude = $row['longitude'];
+	  $source = $row['source'];
+	  $destination = $row['destination'];
+	  
+	  $srcResult = $conn->query("SELECT * FROM airport WHERE iataCode = '$source'");
+	  if($srcResult->num_rows > 0) {
+            while($srcRow = $srcResult->fetch_assoc()) {
+                $srcLat = $srcRow['latitude'];
+                $srcLng = $srcRow['longitude'];
+			}
+	  }
+      
+      $dstResult = $conn->query("SELECT * FROM airport WHERE iataCode = '$destination'");
+	  if($dstResult->num_rows > 0) {
+            while($dstRow = $dstResult->fetch_assoc()) {
+                $dstLat = $dstRow['latitude'];
+                $dstLng = $dstRow['longitude'];
+			}
+	  }
+
    }
    echo "</table></center>";
+   
+
    
 } else {
    echo "0 results";
@@ -63,19 +89,35 @@ $conn->close();
     <!--The div element for the map -->
     <div id="map"></div>
     <script>
-// Initialize and add the map
-function initMap() {
-  var latitude = "<?php echo $latitude ?>";
-  var longitude = "<?php echo $latitude ?>";
-  // The location of flightLocation
-  var flightLocation = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
-  // The map, centered at flightLocation
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: flightLocation});
-  // The marker, positioned at flightLocation
-  var marker = new google.maps.Marker({position: flightLocation, map: map});
-}
+    function initMap() {
+      var latitude = "<?php echo $latitude ?>";
+      var longitude = "<?php echo $longitude ?>";
+      // The location of flightLocation
+      var flightLocation = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+      var labels = 'FSD';
+      // The map, centered at flightLocation
+      var map = new google.maps.Map(
+          document.getElementById('map'), {zoom: 4, center: flightLocation});
+      // The marker, positioned at flightLocation
+      var markers = locations.map(function(location, i) {
+        return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+        });
+      });
+      
+
+      var markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    }
+    
+    var locations = [
+        {lat: parseFloat("<?php echo $latitude ?>"), lng: parseFloat("<?php echo $longitude ?>")},
+        {lat: parseFloat("<?php echo $srcLat ?>"), lng: parseFloat("<?php echo $srcLng ?>")},
+        {lat: parseFloat("<?php echo $dstLat ?>"), lng: parseFloat("<?php echo $dstLng ?>")}
+    ]
     </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-dMxwYbOXRN84TnGsGhVS7xdPDbzMS54&callback=initMap">
     </script>
