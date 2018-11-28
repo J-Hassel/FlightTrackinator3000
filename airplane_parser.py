@@ -18,4 +18,3 @@ for line in open("airplanes.dat", encoding="utf8"):
 
     connection.commit()
 connection.close()
-
