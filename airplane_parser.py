@@ -7,7 +7,7 @@ cursor.execute("DELETE FROM airplane")
 
 for line in open("airplanes.dat", encoding="utf8"):
     name = line.split(',')[0][1:-1]
-    iataCode = line.split(',')[1][1:-1]
+    iataCode = line.split(',')[2][1:-1]
 
     if iataCode == "":
         continue
