@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+
 //$output = shell_exec("python flight_parser.py");
 header("Content-Type: text/html;charset=UTF-8");
 $servername = "localhost";
