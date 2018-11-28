@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
+$output = shell_exec("python flight_parser.py");
+header("Refresh:30");
 header("Content-Type: text/html;charset=UTF-8");
 $servername = "localhost";
 $username = "root";
@@ -62,7 +64,15 @@ if ($result->num_rows > 0) {
            while($row = $from->fetch_assoc()) {
               $line = "<tr>";
               for($x = 0; $x < $count; $x++){
-                $line = $line . "<td>" . $row[mysqli_field_name($from, $x)] . "</td>";
+                if(mysqli_field_name($from, $x) == "destination"){
+                    $variable = $row[mysqli_field_name($from, $x)];
+                    $line = $line . "<td><a href=\"airport.php?iataCode=$variable\">" . $variable . "</a></td>";
+                }else if(mysqli_field_name($from, $x) == "aircraft_id"){
+                    $variable = $row[mysqli_field_name($from, $x)];
+                    $line = $line . "<td><a href=\"map.php?aircraft_id=$variable\">" . $variable . "</a></td>";
+                }else{
+                    $line = $line . "<td>" . $row[mysqli_field_name($from, $x)] . "</td>";
+                }
               }
               array_push($locs, array($row["latitude"],$row["longitude"], $row['aircraft_id'], $row['direction']));
               echo utf8_encode($line)."</tr>";
@@ -85,14 +95,22 @@ if ($result->num_rows > 0) {
            while($row = $to->fetch_assoc()) {
               $line = "<tr>";
               for($x = 0; $x < $count; $x++){
-                $line = $line . "<td>" . $row[mysqli_field_name($to, $x)] . "</td>";
+                if(mysqli_field_name($to, $x) == "source"){
+                    $variable = $row[mysqli_field_name($to, $x)];
+                    $line = $line . "<td><a href=\"airport.php?iataCode=$variable\">" . $variable . "</a></td>";
+                }else if(mysqli_field_name($to, $x) == "aircraft_id"){
+                    $variable = $row[mysqli_field_name($to, $x)];
+                    $line = $line . "<td><a href=\"map.php?aircraft_id=$variable\">" . $variable . "</a></td>";
+                }else{
+                    $line = $line . "<td>" . $row[mysqli_field_name($to, $x)] . "</td>";
+                }
               }
             array_push($locs, array($row["latitude"],$row["longitude"], $row['aircraft_id'], $row['direction']));
               echo utf8_encode($line)."</tr>";
         }
         echo "</table>";
    }else{
-       echo "No flights have currently departed from this airport";
+       echo "No flights are currently flying to this airport";
    }
    echo "</center>";
 
@@ -143,27 +161,27 @@ $conn->close();
         scale: 0.05,
         strokeOpacity: 1,
         color: 'black',
-        strokeWeight: 1
+        strokeWeight: 1,
+        anchor: new google.maps.Point(400, 400)	
       };
-      var markers = locations.map(function(location, i) {
+      var marker, i;
+      for(i = 0; i < locations.length; i++){
           if(i == 0){
-            return new google.maps.Marker({
-                position: location,
-                title: names[i]
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][0],locations[i][1]),
+                title: names[i],
+                map: map
             });
           }else{
               planeSymbol.rotation = parseInt(headings[i]);
-              return new google.maps.Marker({
-                position: location,
+              marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][0],locations[i][1]),
                 title: names[i],
-                icon: planeSymbol
+                icon: planeSymbol,
+                map: map
             });
           }
-      });
-      
-
-      var markerCluster = new MarkerClusterer(map, markers,
-        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+      }
     };
     
     var names = [
@@ -173,21 +191,26 @@ $conn->close();
     var headings = [
         ""
     ]
-    
+    var temp = [
+        parseFloat("<?php echo $latitude; ?>"),
+        parseFloat("<?php echo $longitude; ?>")
+    ];
     var locations = [
-        {lat: parseFloat("<?php echo $latitude ?>"), lng: parseFloat("<?php echo $longitude ?>")}
+        //{lat: parseFloat("<?php echo $latitude ?>"), lng: parseFloat("<?php echo $longitude ?>")}
+        temp
     ]
     
     
     <?php foreach($locs as $key => $val){ ?>
-        locations.push({lat: parseFloat('<?php echo $val[0]; ?>'), lng: parseFloat('<?php echo $val[1]; ?>')});
+        //locations.push({lat: parseFloat('<?php echo $val[0]; ?>'), lng: parseFloat('<?php echo $val[1]; ?>')});
+        locations.push([parseFloat('<?php echo $val[0]; ?>'),parseFloat('<?php echo $val[1]; ?>')]);
         names.push('<?php echo $val[2]; ?>');
         headings.push('<?php echo $val[3]; ?>');
     <?php } ?>
         
 
     </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-dMxwYbOXRN84TnGsGhVS7xdPDbzMS54&callback=initMap">
     </script>

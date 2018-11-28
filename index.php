@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
+$output = shell_exec("python flight_parser.py");
 header("Content-Type: text/html;charset=UTF-8");
 $servername = "localhost";
 $username = "root";
@@ -60,6 +61,18 @@ function mysqli_field_name($result, $field_offset)
 function build_table($result, $conn, $table_name){
    if ($result->num_rows > 0) {
       echo "<center><h1>" . $table_name . "</h1>";
+      $page = "#";
+      $var = "";
+      $headVal = "";
+      if( $table_name == "flight"){
+          $page = "map.php";
+          $var = "aircraft_id";
+          $headVal = "aircraft_id";
+      }else if( $table_name == "airport"){
+          $page = "airport.php";
+          $var = "iataCode";
+          $headVal = "iataCode";
+      }
       $count = mysqli_field_count($conn);
       $header = "<table id='t01'><tr>";
       $line = "<tr><form method = \"post\" ><input type=\"hidden\" name = \"table_name\" value = \"$table_name\">";
@@ -79,9 +92,9 @@ function build_table($result, $conn, $table_name){
        while($row = $result->fetch_assoc()) {
           $line = "<tr>";
          for($x = 0; $x < $count; $x++){
-            if($x == 0){
+            if(mysqli_field_name($result, $x) == $headVal){
                $aircraftID = $row[mysqli_field_name($result, $x)];
-               $line = $line . "<td><a href=\"map.php?aircraft_id=$aircraftID\">" . $row[mysqli_field_name($result, $x)] . "</a></td>";
+               $line = $line . "<td><a href=\"$page?$var=$aircraftID\">" . $row[mysqli_field_name($result, $x)] . "</a></td>";
             }else{
                $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
             }
