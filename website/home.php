@@ -36,11 +36,11 @@
 			<form id="ft-form" action="database.php">
             <input type="hidden" name="table_name" value="flight">
 				<div class = "airline-form">
-					<input name="airline" id="flight-tracker-form-airline" type="text" placeholder="Airline Code">
+					<input name="airline" id="flight-tracker-form-airline" type="text" placeholder="Airline Code" class="form-control">
 				</div>
 
 				<div class="flight-number-form">
-					<input name="flight_num"id="flight-tracker-form-number" type="text" placeholder="Flight Number">
+					<input name="flight_num"id="flight-tracker-form-number" type="text" placeholder="Flight Number" class="form-control">
 				</div>
             <input type="submit" value="Submit" name="Submit">
 			</form>
