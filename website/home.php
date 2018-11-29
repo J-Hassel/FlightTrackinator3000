@@ -27,9 +27,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 		
 			<ul class="main-nav">
 				<li class="active"><a href="home.php">Home</a></li>
-				<li><a href="database.php?table_name=flight&Submit=Submit">Flights</a></li>
 				<li><a href="allflights.php">Map</a></li>
-				<li><a href="database.php">Database</a></li>
+				<li><a href="database.php?table_name=flight&Submit=Submit">Database</a></li>
 				<li><a href="logout.php">Sign Out</a></li>
 				<li><a href="reset-password.php">Reset Password</a></li>
 			</ul>

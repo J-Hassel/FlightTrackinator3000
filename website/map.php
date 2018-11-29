@@ -53,9 +53,8 @@ require_once "config.php";
         <ul class="main-nav">
           <p>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</p>
           <li><a href="home.php">Home</a></li>
-          <li><a href="database.php?table_name=flight&Submit=Submit">Flights</a></li>
           <li class="active"><a href="allflights.php">Map</a></li>
-          <li><a href="database.php">Database</a></li>
+          <li><a href="database.php?table_name=flight&Submit=Submit">Database</a></li>
           <li><a href="logout.php">Sign Out</a></li>
           <li><a href="reset-password.php">Reset Password</a></li>
         </ul>
