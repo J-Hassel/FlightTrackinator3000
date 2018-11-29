@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
+
 // Initialize the session
 session_start();
 
@@ -10,21 +11,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-//$output = shell_exec("python flight_parser.py");
-header("Content-Type: text/html;charset=UTF-8");
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "flighttrackinator3000";
+// Include config file
+require_once "config.php";
 ?>
+
+
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Database</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
-<!--     <style type="text/css">
-        body{ font: 14px sans-serif; text-align: right; }
-    </style> -->
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    
    <style>
@@ -50,8 +46,6 @@ $dbname = "flighttrackinator3000";
    </style>
 </head>
 <body>
-
-
   <header>
     <div class "row">
       <div class="logo">
@@ -60,24 +54,15 @@ $dbname = "flighttrackinator3000";
     
       <ul class="main-nav">
         <li><a href="home.php">Home</a></li>
-        <li><a href="airport.php">Flights</a></li>
-        <li><a href="map.php">Map</a></li>
+        <li><a href="database.php?table_name=flight&Submit=Submit">Flights</a></li>
+        <li><a href="allflights.php">Map</a></li>
         <li class="active"><a href="database.php">Database</a></li>
         <li><a href="logout.php">Sign Out</a></li>
         <li><a href="reset-password.php">Reset Password</a></li>
-
       </ul>
     </div>
   </header>
 
-
-    <!-- <div class="page-header">
-        <p>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</p>
-            <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-    </p>
-    </div> -->
 <center>
 <form  action = "<?php $_PHP_SELF ?>">
    <table width = "400" border = "0" cellspacing = "1" 
@@ -108,7 +93,7 @@ function mysqli_field_name($result, $field_offset)
     return is_object($properties) ? $properties->name : null;
 }
 
-function build_table($result, $conn, $table_name){
+function build_table($result, $link, $table_name){
    if ($result->num_rows > 0) {
       echo "<center><h1>" . $table_name . "</h1>";
       $page = "#";
@@ -123,7 +108,7 @@ function build_table($result, $conn, $table_name){
           $var = "iataCode";
           $headVal = "iataCode";
       }
-      $count = mysqli_field_count($conn);
+      $count = mysqli_field_count($link);
       $header = "<table id='t01'><tr>";
       $line = "<tr><form><input type=\"hidden\" name = \"table_name\" value = \"$table_name\">";
       for($x = 0; $x < $count; $x++){
@@ -164,11 +149,9 @@ function build_table($result, $conn, $table_name){
    }
 }
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($link->connect_error) {
+    die("Connection failed: " . $link->connect_error);
 } 
 if(isset($_GET['table_name'])) {
    $table_name = $_GET['table_name'];
@@ -188,10 +171,10 @@ if(isset($_GET['table_name'])) {
    }else{
       $sql = "SELECT * FROM $table_name";
    }
-   $result = $conn->query($sql);
-   build_table($result, $conn, $table_name);
-   $conn->close();
+   $result = $link->query($sql);
+   build_table($result, $link, $table_name);
+   $link->close();
 }
    ?>
 </body>
-
+</html>

@@ -1,64 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
+
 // Initialize the session
 session_start();
+
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+
+// Include config file
+require_once "config.php";
 ?>
-      <div class="page-header">
-        <p>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</p>
-            <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-    </p>
-    </div>
 
-<?php
-//header("Refresh:30");
-header("Content-Type: text/html;charset=UTF-8");
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "flighttrackinator3000";
-
-$srcLat = "";
-$srcLng = "";
-$dstLat = "";
-$dstLng= "";
-
-// Establish
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-function mysqli_field_name($result, $field_offset)
-{
-    $properties = mysqli_fetch_field_direct($result, $field_offset);
-    return is_object($properties) ? $properties->name : null;
-}
-
-// Display name of airport
-$iataCode = $_GET['iataCode'];
-$sql = "SELECT * FROM airport WHERE iataCode = '$iataCode'";
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
-$airport = $row[mysqli_field_name($result, 0)];
-echo "<center><h1> $airport </h1>";
-
-?>
 <html>
   <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; text-align: right; }
-    </style>
-    <a href="index.php" class="btn btn-success">Home</a>
-    <br> <br>
+    <title>Database</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
       /* Set the size of the div element that contains the map */
       #map {
@@ -79,6 +39,62 @@ echo "<center><h1> $airport </h1>";
     </style>
   </head>
   <body>
+
+    <header>
+        <div class "row">
+          <div class="logo">
+            <img src="logo.png">
+          </div>
+        
+          <ul class="main-nav">
+            <li><a href="home.php">Home</a></li>
+            <li><a href="database.php?table_name=flight&Submit=Submit">Flights</a></li>
+            <li><a href="allflights.php">Map</a></li>
+            <li><a href="database.php">Database</a></li>
+            <li><a href="logout.php">Sign Out</a></li>
+            <li><a href="reset-password.php">Reset Password</a></li>
+
+          </ul>
+        </div>
+      </header>
+
+      <div>
+        
+        <?php
+        //header("Refresh:30");
+        header("Content-Type: text/html;charset=UTF-8");
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "flighttrackinator3000";
+
+        $srcLat = "";
+        $srcLng = "";
+        $dstLat = "";
+        $dstLng= "";
+
+        // Establish
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        }
+
+        function mysqli_field_name($result, $field_offset)
+        {
+            $properties = mysqli_fetch_field_direct($result, $field_offset);
+            return is_object($properties) ? $properties->name : null;
+        }
+
+        // Display name of airport
+        $iataCode = $_GET['iataCode'];
+        $sql = "SELECT * FROM airport WHERE iataCode = '$iataCode'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $airport = $row[mysqli_field_name($result, 0)];
+        echo "<center><h1> $airport </h1>";
+        ?>
+      </div>
+
     <!--The div element for the map -->
     <div id="map"></div>
     <h3> <?php echo $iataCode?> </h3>
