@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2018 at 10:45 PM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.1.12
+-- Generation Time: Nov 29, 2018 at 09:03 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -7401,7 +7401,8 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Rugao Air Base', 'RUG', 'Rugao', 'China', 32.2579, 120.5017),
 ('Wuhu Air Base', 'WHU', 'Wuhu', 'China', 31.3906, 118.4090),
 ('Shanshan Airport', 'SXJ', 'Shanshan', 'China', 42.9117, 90.2475),
-('Yingkou Lanqi Airport', 'YKH', 'Yingkou', 'China', 40.5425, 122.3586);
+('Yingkou Lanqi Airport', 'YKH', 'Yingkou', 'China', 40.5425, 122.3586),
+('Hamad International Airport', 'DOH', 'Doha', 'Qatar', 25.2647, 51.5596);
 
 -- --------------------------------------------------------
 
@@ -17087,7 +17088,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `created_at`) VALUES
-(1, 'guest', '$2y$10$EoN8atI2E6J7rxPn4m.RPewGV6IyZ2bM7pKksDLJ3oXfMfqnNd3YS', '2018-11-28 16:43:39');
+(1, 'guest', '$2y$10$EoN8atI2E6J7rxPn4m.RPewGV6IyZ2bM7pKksDLJ3oXfMfqnNd3YS', '2018-11-28 16:43:39'),
+(2, 'jon', '$2y$10$ZXoJ9Oek4NUCAWQR92yVDeyzFgPPDn/5/vWdilcrWlHzSY6jMIH7e', '2018-11-28 22:52:31');
 
 --
 -- Indexes for dumped tables
@@ -17108,7 +17110,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
