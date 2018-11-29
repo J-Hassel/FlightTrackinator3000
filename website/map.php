@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?php
+
 // Initialize the session
 session_start();
+
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+
+// Include config file
+require_once "config.php";
 ?>
 
 <html>
@@ -49,9 +53,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <ul class="main-nav">
           <p>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</p>
           <li><a href="home.php">Home</a></li>
-          <li><a href="airport.php">Flights</a></li>
-          <li class="active"><a href="map.php">Map</a></li>
-          <li><a href="database.php">Database</a></li>
+          <li class="active"><a href="allflights.php">Map</a></li>
+          <li><a href="database.php?table_name=flight&Submit=Submit">Database</a></li>
           <li><a href="logout.php">Sign Out</a></li>
           <li><a href="reset-password.php">Reset Password</a></li>
         </ul>

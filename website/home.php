@@ -1,3 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?php
+
+// Initialize the session
+session_start();
+
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+?>
+
 <html class="home">
 <head>
 	<title>Flight Tracker</title>
@@ -13,9 +27,8 @@
 		
 			<ul class="main-nav">
 				<li class="active"><a href="home.php">Home</a></li>
-				<li><a href="database.php?table_name=flight&Submit=Submit">Flights</a></li>
-				<li><a href="map.php">Map</a></li>
-				<li><a href="database.php">Database</a></li>
+				<li><a href="allflights.php">Map</a></li>
+				<li><a href="database.php?table_name=flight&Submit=Submit">Database</a></li>
 				<li><a href="logout.php">Sign Out</a></li>
 				<li><a href="reset-password.php">Reset Password</a></li>
 			</ul>
