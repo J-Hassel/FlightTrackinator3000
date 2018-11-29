@@ -13,7 +13,7 @@
 		
 			<ul class="main-nav">
 				<li class="active"><a href="home.php">Home</a></li>
-				<li><a href="airport.php">Flights</a></li>
+				<li><a href="database.php?table_name=flight&Submit=Submit">Flights</a></li>
 				<li><a href="map.php">Map</a></li>
 				<li><a href="database.php">Database</a></li>
 				<li><a href="logout.php">Sign Out</a></li>
@@ -33,14 +33,16 @@
 		</div>
 
 		<div class="flight-tracker-form">
-			<form id="ft-form">
+			<form id="ft-form" action="database.php">
+            <input type="hidden" name="table_name" value="flight">
 				<div class = "airline-form">
-					<input id="flight-tracker-form-airline" type="text" placeholder="Airline">
+					<input name="airline" id="flight-tracker-form-airline" type="text" placeholder="Airline Code">
 				</div>
 
 				<div class="flight-number-form">
-					<input id="flight-tracker-form-number" type="text" placeholder="Flight Number">
+					<input name="flight_num"id="flight-tracker-form-number" type="text" placeholder="Flight Number">
 				</div>
+            <input type="submit" value="Submit" name="Submit">
 			</form>
 		</div>
 
