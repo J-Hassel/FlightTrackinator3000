@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2018 at 09:03 PM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Generation Time: Nov 29, 2018 at 10:26 PM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `airline` (
-  `name` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `iataCode` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `country` varchar(40) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `name` varchar(50) NOT NULL,
+  `iataCode` varchar(10) NOT NULL,
+  `country` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `airline`
@@ -1572,11 +1572,11 @@ INSERT INTO `airline` (`name`, `iataCode`, `country`) VALUES
 --
 
 CREATE TABLE `airplane` (
-  `name` varchar(60) CHARACTER SET utf8 NOT NULL,
-  `icaoCode` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `iataCode` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `icaoCode` varchar(10) NOT NULL,
+  `iataCode` varchar(10) NOT NULL,
   `capacity` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `airplane`
@@ -1765,13 +1765,13 @@ INSERT INTO `airplane` (`name`, `icaoCode`, `iataCode`, `capacity`) VALUES
 --
 
 CREATE TABLE `airport` (
-  `name` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `iataCode` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `city` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `country` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `iataCode` varchar(10) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL,
   `latitude` double(10,4) NOT NULL,
   `longitude` double(10,4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `airport`
@@ -7411,18 +7411,18 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 --
 
 CREATE TABLE `flight` (
-  `aircraft_id` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `aircraft_id` varchar(10) NOT NULL,
   `altitude` double(10,1) NOT NULL,
   `latitude` double(10,4) NOT NULL,
   `longitude` double(10,4) NOT NULL,
   `direction` int(3) NOT NULL,
   `speed` double(10,1) NOT NULL,
-  `airline` varchar(40) CHARACTER SET utf8 NOT NULL,
-  `flight_num` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `aircraft_icao` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `source` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `destination` varchar(10) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `airline` varchar(40) NOT NULL,
+  `flight_num` varchar(10) NOT NULL,
+  `aircraft_icao` varchar(10) NOT NULL,
+  `source` varchar(10) NOT NULL,
+  `destination` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `flight`
@@ -17065,10 +17065,12 @@ INSERT INTO `flight` (`aircraft_id`, `altitude`, `latitude`, `longitude`, `direc
 
 CREATE TABLE `review` (
   `ID` int(11) NOT NULL,
+  `type` text NOT NULL,
+  `username` text NOT NULL,
   `Rating` int(11) NOT NULL,
   `Time` datetime NOT NULL,
   `Comment` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -17081,7 +17083,7 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
@@ -17089,7 +17091,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `created_at`) VALUES
 (1, 'guest', '$2y$10$EoN8atI2E6J7rxPn4m.RPewGV6IyZ2bM7pKksDLJ3oXfMfqnNd3YS', '2018-11-28 16:43:39'),
-(2, 'jon', '$2y$10$ZXoJ9Oek4NUCAWQR92yVDeyzFgPPDn/5/vWdilcrWlHzSY6jMIH7e', '2018-11-28 22:52:31');
+(2, 'jon', '$2y$10$ZXoJ9Oek4NUCAWQR92yVDeyzFgPPDn/5/vWdilcrWlHzSY6jMIH7e', '2018-11-28 22:52:31'),
+(3, 'jimbo', '$2y$10$AQ9s8.OhADIOtm8iL62CY.ysNclOOr3QDPzPp4jDv835wcIQcd.5W', '2018-11-29 15:03:13');
 
 --
 -- Indexes for dumped tables
@@ -17110,7 +17113,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
