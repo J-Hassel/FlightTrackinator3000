@@ -9,17 +9,30 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 ?>
+
+
 <html>
+<head>
+    <title>Map</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
    <body>
-   <div class="page-header">
-      <p>Hi, 
-      <b>
-         <?php echo htmlspecialchars($_SESSION["username"]); ?>
-      </b> .</p>
-      <p>
-      <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a> 
-      <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a></p>
-   </div><?php
+    <header>
+      <div class "row">
+        <div class="logo">
+          <img src="logo.png">
+        </div>
+      
+        <ul class="main-nav">
+          <li><a href="home.php">Home</a></li>
+          <li class="active"><a href="allflights.php">Map</a></li>
+          <li><a href="database.php?table_name=flight&Submit=Submit">Database</a></li>
+          <li><a href="logout.php">Sign Out</a></li>
+          <li><a href="reset-password.php">Reset Password</a></li>
+        </ul>
+      </div>
+    </header>
+   <?php
       //header("Refresh:30");
       header("Content-Type: text/html;charset=UTF-8");
       $servername = "localhost";
@@ -43,14 +56,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       $result = $conn->query($sql);
 
       ?>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" />
-   <style type="text/css">
-        body{ font: 14px sans-serif; text-align: right; }
          
 </style>
-   <a href="index.php" class="btn btn-success">Home</a>
-   <br />
-   <br />
    <style>
       /* Set the size of the div element that contains the map */
       #map {
