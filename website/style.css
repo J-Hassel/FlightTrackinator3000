@@ -16,6 +16,11 @@ body
 		font-family: "Roboto", sans-serif;
 }
 
+input
+{
+	margin-top: 20px;
+}
+
 .main-nav
 {
 	float: right;
@@ -90,9 +95,6 @@ body
 	padding: 20px;
 }
 
-.flight-tracker-form
-{
-}
 
 .airline-form
 {

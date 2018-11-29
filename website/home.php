@@ -37,17 +37,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 	<div class="tracker-box">
 		<div class="ftrack-headline">
-			<h1>
-				Flight Tracker
-				<span>✈</span>
-				<h2>Moved index page to database.php, click database tab. Need to add this header to all pages</h2>
-
-			</h1>
+			<h1>Flight Tracker
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span>✈</span></h1>
 		</div>
 
 		<div class="flight-tracker-form">
 			<form id="ft-form" action="database.php">
-            <input type="hidden" name="table_name" value="flight">
 				<div class = "airline-form">
 					<input name="airline" id="flight-tracker-form-airline" type="text" placeholder="Airline Code" class="form-control">
 				</div>
@@ -55,7 +52,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 				<div class="flight-number-form">
 					<input name="flight_num"id="flight-tracker-form-number" type="text" placeholder="Flight Number" class="form-control">
 				</div>
-            <input type="submit" value="Submit" name="Submit">
+            <input type="submit" value="Track Flight" name="Submit">
 			</form>
 		</div>
 
