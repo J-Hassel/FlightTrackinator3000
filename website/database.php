@@ -18,11 +18,12 @@ $dbname = "flighttrackinator3000";
 ?>
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
+    <title>Database</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
+<!--     <style type="text/css">
         body{ font: 14px sans-serif; text-align: right; }
-    </style>
+    </style> -->
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    
    <style>
@@ -44,13 +45,34 @@ $dbname = "flighttrackinator3000";
    </style>
 </head>
 <body>
-    <div class="page-header">
+
+
+  <header>
+    <div class "row">
+      <div class="logo">
+        <img src="logo.png">
+      </div>
+    
+      <ul class="main-nav">
+        <li><a href="home.php">Home</a></li>
+        <li><a href="airport.php">Flights</a></li>
+        <li><a href="map.php">Map</a></li>
+        <li class="active"><a href="database.php">Database</a></li>
+        <li><a href="logout.php">Sign Out</a></li>
+        <li><a href="reset-password.php">Reset Password</a></li>
+
+      </ul>
+    </div>
+  </header>
+
+
+    <!-- <div class="page-header">
         <p>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</p>
             <p>
         <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
         <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
     </p>
-    </div>
+    </div> -->
 <center>
 <form method = "post" action = "<?php $_PHP_SELF ?>">
    <table width = "400" border = "0" cellspacing = "1" 

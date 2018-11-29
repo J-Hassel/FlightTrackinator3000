@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?php
 // Initialize the session
 session_start();
@@ -9,13 +10,54 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 ?>
-      <div class="page-header">
-        <p>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</p>
-            <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-    </p>
-    </div>
+
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  
+  <style>
+    /* Set the size of the div element that contains the map */
+    #map {
+      margin: auto;
+      height: 600px;  /* The height is 400 pixels */
+      width: 100%;  /* The width is the width of the web page */
+     }
+     table#t01 tr:nth-child(even) {
+        background-color: #eee;
+    }
+    table#t01 tr:nth-child(odd) {
+       background-color: #fff;
+    }
+    table#t01 th {
+        background-color: black;
+        color: white;
+        width: 0.5%;
+    }
+  </style>
+</head>
+<body>
+    <header>
+      <div class "row">
+        <div class="logo">
+          <img src="logo.png">
+        </div>
+      
+        <ul class="main-nav">
+          <p>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</p>
+          <li><a href="home.php">Home</a></li>
+          <li><a href="airport.php">Flights</a></li>
+          <li class="active"><a href="map.php">Map</a></li>
+          <li><a href="database.php">Database</a></li>
+          <li><a href="logout.php">Sign Out</a></li>
+          <li><a href="reset-password.php">Reset Password</a></li>
+        </ul>
+      </div>
+    </header>
+
 
 <?php
 //$output = shell_exec("python flight_parser.py");
@@ -104,36 +146,9 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; text-align: right; }
-    </style>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <a href="index.php" class="btn btn-success">Home</a>
-    <br><br>
-    <style>
-      /* Set the size of the div element that contains the map */
-      #map {
-        margin: auto;
-        height: 600px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
-       table#t01 tr:nth-child(even) {
-          background-color: #eee;
-      }
-      table#t01 tr:nth-child(odd) {
-         background-color: #fff;
-      }
-      table#t01 th {
-          background-color: black;
-          color: white;
-          width: 0.5%;
-      }
-    </style>
-  </head>
-  <body>
+
+
+
     <!--The div element for the map -->
     <div id="map"></div>
     <script>

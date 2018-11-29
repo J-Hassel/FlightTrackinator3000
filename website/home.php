@@ -8,15 +8,16 @@
 	<header>
 		<div class "row">
 			<div class="logo">
-				<img src="logo.png">
+ 				<img src="logo.png">
 			</div>
 		
 			<ul class="main-nav">
-				<li class="active"><a href="index.php">Home</a></li>
-				<li><a href="flights.php">Flights</a></li>
+				<li class="active"><a href="home.php">Home</a></li>
+				<li><a href="airport.php">Flights</a></li>
 				<li><a href="map.php">Map</a></li>
 				<li><a href="database.php">Database</a></li>
 				<li><a href="logout.php">Sign Out</a></li>
+				<li><a href="reset-password.php">Reset Password</a></li>
 			</ul>
 		</div>
 	</header>
