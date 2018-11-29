@@ -196,14 +196,21 @@ $conn->close();
         strokeWeight: 1,
         anchor: new google.maps.Point(400, 400)	
       };
-      var infoWindow = new google.maps.InfoWindow(), marker, i;
+      var infoWindow = new google.maps.InfoWindow(), marker, airportMarker, i;
       for(i = 0; i < locations.length; i++){
           if(i == 0){
-            marker = new google.maps.Marker({
+            airportMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(locations[i][0],locations[i][1]),
                 title: names[i],
-                map: map
+                map: map,
+                zIndex: locations.length + 1
             });
+            google.maps.event.addListener(airportMarker, 'click', (function(airportMarker, i) {
+                  return function() {
+                      infoWindow.setContent(infoWindowContent[i]);
+                      infoWindow.open(map, airportMarker);
+                  }
+              })(airportMarker, i));
           }else{
               planeSymbol.rotation = parseInt(headings[i]);
               marker = new google.maps.Marker({
@@ -212,15 +219,16 @@ $conn->close();
                 icon: planeSymbol,
                 map: map
             });
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+               return function() {
+                   infoWindow.setContent(infoWindowContent[i]);
+                   infoWindow.open(map, marker);
+               }
+            })(marker, i));
           }
           
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infoWindow.setContent(infoWindowContent[i]);
-                infoWindow.open(map, marker);
-            }
-        })(marker, i));
       }
+      airportMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
     };
     
     var names = [
@@ -238,7 +246,7 @@ $conn->close();
         temp
     ];
     var infoWindowContent = [
-        "<?php echo $iataCode; ?>"
+        "<?php echo $airport; ?>"
     ];
     
     <?php foreach($locs as $key => $val){ ?>

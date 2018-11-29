@@ -2,6 +2,7 @@
 <?php
 // Initialize the session
 session_start();
+
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -42,6 +43,10 @@ $dbname = "flighttrackinator3000";
           padding: 10px;
           margin: 0px;
       }
+      #searchsubmit
+      {    
+        display: none;
+      }
    </style>
 </head>
 <body>
@@ -74,7 +79,7 @@ $dbname = "flighttrackinator3000";
     </p>
     </div> -->
 <center>
-<form method = "post" action = "<?php $_PHP_SELF ?>">
+<form  action = "<?php $_PHP_SELF ?>">
    <table width = "400" border = "0" cellspacing = "1" 
       cellpadding = "2">
    
@@ -89,8 +94,7 @@ $dbname = "flighttrackinator3000";
    
       <tr>
          <td>
-            <input name = "Submit" type = "submit" id = "Submit" 
-               value = "Submit">
+            <input name = "Submit" type = "submit" id = "Submit">
          </td>
       </tr>
    
@@ -121,16 +125,20 @@ function build_table($result, $conn, $table_name){
       }
       $count = mysqli_field_count($conn);
       $header = "<table id='t01'><tr>";
-      $line = "<tr><form method = \"post\" ><input type=\"hidden\" name = \"table_name\" value = \"$table_name\">";
+      $line = "<tr><form><input type=\"hidden\" name = \"table_name\" value = \"$table_name\">";
       for($x = 0; $x < $count; $x++){
          $field_name = mysqli_field_name($result, $x);
          $header = $header . "<th>$field_name</th>";
          if($x > 0){
             $line = $line . "</td>";
          }
-         $line = $line . "<td><input name=\"$field_name\" type=\"text\" id=\"$field_name\">";
+         if(isset($_GET[$field_name])){
+            $line = $line . "<td><input name=\"$field_name\" type=\"text\" id=\"$field_name\" value='$_GET[$field_name]'>";
+         }else{
+            $line = $line . "<td><input name=\"$field_name\" type=\"text\" id=\"$field_name\">";
+         }
       }
-      $line = $line . "<input name = \"Submit\" type = \"submit\" id = \"Submit\" value = \"Submit\"></form></tr>";
+      $line = $line . "<input name = \"Submit\" type = \"submit\" id = \"searchsubmit\" value = \"Submit\"></form></tr>";
       $header = $header . "</tr>";
       echo $header;
       echo $line;
@@ -162,17 +170,17 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-if(isset($_POST['Submit'])) {
-   $table_name = $_POST['table_name'];
-   if(count($_POST) > 2){
+if(isset($_GET['table_name'])) {
+   $table_name = $_GET['table_name'];
+   if(count($_GET) > 2){
       $sql = "SELECT * FROM $table_name";
       $count = 0;
-      foreach ($_POST as $key => $value) {
+      foreach ($_GET as $key => $value) {
          if($key != "table_name" AND $key != "Submit"){
             if($count == 0){
-               $sql = $sql . " WHERE $key LIKE '%$_POST[$key]%'";
+               $sql = $sql . " WHERE $key LIKE '%$_GET[$key]%'";
             }else{
-               $sql = $sql . " AND $key LIKE '%$_POST[$key]%'";
+               $sql = $sql . " AND $key LIKE '%$_GET[$key]%'";
             }
             $count++;
          }
