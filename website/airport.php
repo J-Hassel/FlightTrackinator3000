@@ -34,7 +34,11 @@ require_once "config.php";
           background-color: black;
           color: white;
           width: 0.5%;
+          font-size: 10pt;
       }
+      .floatLeft { width: 50%; float: left; }
+      .floatRight {width: 50%; float: right; }
+      .container { overflow: hidden; }
     </style>
   </head>
   <body>
@@ -97,7 +101,9 @@ if ($result->num_rows > 0) {
       echo utf8_encode($line)."</tr>";
    }
    echo "</table>";
-   echo "<h1 style=\"padding: 20px;\"> Flights From $airport</h1>";
+   include_once("review.php");
+   printReview("airport", $iataCode);
+   echo "<div class='container'><div class='floatLeft'><h1 style='padding: 10px; font-size: 18pt;'> Flights From $airport</h1>";
    $from = $link->query("SELECT * FROM flight WHERE source = '$iataCode'");
    $locs = array();
    if ($from->num_rows > 0) {
@@ -129,7 +135,7 @@ if ($result->num_rows > 0) {
    }else{
        echo "<p style=\"padding-left: 20px;\">No flights have currently departed from this airport</p>";
    }
-   echo "<h1 style=\"padding: 20px;\"> Flights To $airport</h1>";
+   echo "</div><div class='floatRight'><h1 style='padding: 10px; font-size: 18pt;'> Flights To $airport</h1>";
    $to = $link->query("SELECT * FROM flight WHERE destination = '$iataCode'");
    if ($to->num_rows > 0) {
           $count = mysqli_field_count($link);
@@ -160,7 +166,7 @@ if ($result->num_rows > 0) {
    }else{
        echo "<p style=\"padding-left: 20px;\">No flights are currently flying to this airport</p>";
    }
-   echo "</center>";
+   echo "</div></div></center>";
 
 ;
 } else {
