@@ -46,21 +46,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </head>
 
 <body>
-	<header>
-		<div class "row">
-			<div class="logo">
- 				<img src="logo.png">
-			</div>
-		
-			<ul class="main-nav">
-				<li class="active"><a href="home.php">Home</a></li>
-				<li><a href="allflights.php">Map</a></li>
-				<li><a href="database.php?table_name=flight&Submit=Submit">Database</a></li>
-				<li><a href="logout.php">Sign Out</a></li>
-				<li><a href="reset-password.php">Reset Password</a></li>
-			</ul>
-		</div>
-	</header>
+	<?php include_once("header.php"); ?>
 
 	<div class="tracker-box">
 		<div class="ftrack-headline">

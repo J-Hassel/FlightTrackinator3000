@@ -44,22 +44,7 @@ require_once "config.php";
   </style>
 </head>
 <body>
-    <header>
-      <div class "row">
-        <div class="logo">
-          <img src="logo.png">
-        </div>
-      
-        <ul class="main-nav">
-          <p>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</p>
-          <li><a href="home.php">Home</a></li>
-          <li class="active"><a href="allflights.php">Map</a></li>
-          <li><a href="database.php?table_name=flight&Submit=Submit">Database</a></li>
-          <li><a href="logout.php">Sign Out</a></li>
-          <li><a href="reset-password.php">Reset Password</a></li>
-        </ul>
-      </div>
-    </header>
+    <?php include_once("header.php"); ?>
 
 
 <?php
