@@ -27,9 +27,11 @@ if(isset($_GET['deleteReview'])) {
 function updateReview($type, $id, $username, $url) {
 	global $conn;
 
-	/* Attempt to delete from table */
-	$sql = "DELETE
-			FROM	review
+	$date = date("d/m/Y");
+
+	/* Attempt to update review */
+	$sql = "UPDATE
+			SET		rating = '', time = '$date', comment = ''
 			WHERE	type = '$type'
 			AND		refID = '$id'
 			AND		username = '$username'";
@@ -42,7 +44,7 @@ function updateReview($type, $id, $username, $url) {
 				. "</script>";
 	} else {
 		echo 	"<script type='text/javascript'>
-				alert('Error deleting review!');
+				alert('Error updating review!');
 				</script>";
 	}
 }
@@ -51,11 +53,9 @@ function updateReview($type, $id, $username, $url) {
 function deleteReview($type, $id, $username, $url) {
 	global $conn;
 
-	$date = date("d/m/Y");
-
-	/* Attempt to update review */
-	$sql = "UPDATE
-			SET		rating = '', time = '$date', comment = ''
+	/* Attempt to delete from table */
+	$sql = "DELETE
+			FROM	review
 			WHERE	type = '$type'
 			AND		refID = '$id'
 			AND		username = '$username'";
@@ -81,6 +81,7 @@ function deleteReview($type, $id, $username, $url) {
 
 <h2>User Reviews</h2>
 <?php
+
 function printReview($type, $id) {
 	/* Escape if incorrect attribute found */
 	if(!isset($type) || !isset($id)) {
