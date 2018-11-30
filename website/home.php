@@ -16,6 +16,33 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <head>
 	<title>Flight Tracker</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+   <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>    
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" /> 
+   <script type="text/javascript">
+      $(function() 
+      {
+       $( "#airline" ).autocomplete({
+        source: 'searchAirline.php',
+        select: function (event, ui) {
+           event.preventDefault();
+           var data = ui.item;
+          var arr = data.value.split(',');
+          $("#airline").val(arr[1])  
+         }
+       });
+      });
+      
+      $(function() 
+      {
+       $( "#flight_num" ).autocomplete({
+        source: function(request, response) {
+          $.getJSON("searchFN.php", { airline: $('#airline').val(), term: request.term }, 
+                    response);
+        }
+       });
+      });
+   </script>
 </head>
 
 <body>
@@ -45,14 +72,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 		<div class="flight-tracker-form">
 			<form id="ft-form" action="database.php">
+            <input name="table_name" type="hidden" value="flight">
 				<div class = "airline-form">
-					<input name="airline" id="flight-tracker-form-airline" type="text" placeholder="Airline Code" class="form-control">
+					<input name="airline" id="airline" type="text" placeholder="Airline Code" class="form-control">
 				</div>
 
 				<div class="flight-number-form">
-					<input name="flight_num"id="flight-tracker-form-number" type="text" placeholder="Flight Number" class="form-control">
+					<input name="flight_num"id="flight_num" type="text" placeholder="Flight Number" class="form-control">
 				</div>
-            <input type="submit" value="Track Flight" name="Submit">
+            <input type="submit" value="Submit" name="Submit">
 			</form>
 		</div>
 
