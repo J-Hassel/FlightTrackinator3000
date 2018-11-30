@@ -116,7 +116,7 @@ if ($result->num_rows > 0) {
                     $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
                 }else if(mysqli_field_name($from, $x) == "aircraft_id"){
                     $variable = $row[mysqli_field_name($from, $x)];
-                    $line = $line . "<td><a href='map.php?aircraft_id=$variable'>" . $variable . "</a></td>";
+                    $line = $line . "<td><a href='singleflight.php?aircraft_id=$variable'>" . $variable . "</a></td>";
                 }else{
                     $line = $line . "<td>" . $row[mysqli_field_name($from, $x)] . "</td>";
                 }
@@ -147,7 +147,7 @@ if ($result->num_rows > 0) {
                     $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
                 }else if(mysqli_field_name($to, $x) == "aircraft_id"){
                     $variable = $row[mysqli_field_name($to, $x)];
-                    $line = $line . "<td><a href='map.php?aircraft_id=$variable'>" . $variable . "</a></td>";
+                    $line = $line . "<td><a href='singleflight.php?aircraft_id=$variable'>" . $variable . "</a></td>";
                 }else{
                     $line = $line . "<td>" . $row[mysqli_field_name($to, $x)] . "</td>";
                 }

@@ -107,7 +107,7 @@ function build_table($result, $link, $table_name)
       $var = "";
       $headVal = "";
       if( $table_name == "flight"){
-          $page = "map.php";
+          $page = "singleflight.php";
           $var = "aircraft_id";
           $headVal = "aircraft_id";
       }else if( $table_name == "airport"){
