@@ -197,5 +197,11 @@ $link->close();
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-dMxwYbOXRN84TnGsGhVS7xdPDbzMS54&callback=initMap">
     </script>
+
+    <?php
+        include_once("review.php");
+        printReview("aircraft", $aircraft_id);
+    ?>
+
   </body>
 </html>
