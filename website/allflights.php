@@ -23,7 +23,7 @@ require_once "config.php";
    <?php include_once("header.php"); ?>
    <?php
       //header("Refresh:30");
-      header("Content-Type: text/html;charset=UTF-8");
+      // header("Content-Type: text/html;charset=UTF-8");
 
       if ($link->connect_error) {
         die("Connection failed: " . $link->connect_error);
@@ -43,7 +43,7 @@ require_once "config.php";
    <style>
       /* Set the size of the div element that contains the map */
       #map {
-        height: 600px;  /* The height is 400 pixels */
+        height: 90%;  /* The height is 90% of the web page */
         width: 100%;  /* The width is the width of the web page */
        }
       table#t01 tr:nth-child(even) {

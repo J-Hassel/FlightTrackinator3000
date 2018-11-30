@@ -82,7 +82,7 @@ $dstCity = $flightRow['city'];
 $sql = "SELECT * FROM flight WHERE aircraft_id = '$aircraft_id'";
 $result = $link->query($sql);
 if ($result->num_rows > 0) {
-  echo "<center><h1>$airline - Flight $flight_num :: $srcCity -> $dstCity</h1>";
+  echo "<center><h1 style=\"padding: 20px;\">$airline - Flight $flight_num  &nbsp :: &nbsp $srcCity &nbsp ✈ &nbsp $dstCity</h1>";
   $count = mysqli_field_count($link);
   $header = "<table id='t01'><tr>";
   for($x = 0; $x < $count; $x++){
@@ -129,6 +129,7 @@ if ($result->num_rows > 0) {
 	  }
 
    }
+   echo "</center>";
    
 
    

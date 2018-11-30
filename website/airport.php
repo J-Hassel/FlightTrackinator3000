@@ -68,13 +68,12 @@ require_once "config.php";
         $result = $link->query($sql);
         $row = $result->fetch_assoc();
         $airport = $row[mysqli_field_name($result, 0)];
-        echo "<center><h1> $airport </h1>";
+        echo "<center><h1 style=\"padding: 20px;\">$airport</h1>";
         ?>
       </div>
 
     <!--The div element for the map -->
     <div id="map"></div>
-    <h3> <?php echo $iataCode?> </h3>
 <?php    
 $sql = "SELECT * FROM airport WHERE iataCode = '$iataCode'";
 $result = $link->query($sql);
@@ -98,7 +97,7 @@ if ($result->num_rows > 0) {
       echo utf8_encode($line)."</tr>";
    }
    echo "</table>";
-   echo "<h1> Flights From $iataCode</h1>";
+   echo "<h1 style=\"padding: 20px;\"> Flights From $airport</h1>";
    $from = $link->query("SELECT * FROM flight WHERE source = '$iataCode'");
    $locs = array();
    if ($from->num_rows > 0) {
@@ -128,9 +127,9 @@ if ($result->num_rows > 0) {
         }
         echo "</table>";
    }else{
-       echo "No flights have currently departed from this airport";
+       echo "<p style=\"padding-left: 20px;\">No flights have currently departed from this airport</p>";
    }
-   echo "<h1> Flights To $iataCode</h1>";
+   echo "<h1 style=\"padding: 20px;\"> Flights To $airport</h1>";
    $to = $link->query("SELECT * FROM flight WHERE destination = '$iataCode'");
    if ($to->num_rows > 0) {
           $count = mysqli_field_count($link);
@@ -159,7 +158,7 @@ if ($result->num_rows > 0) {
         }
         echo "</table>";
    }else{
-       echo "No flights are currently flying to this airport";
+       echo "<p style=\"padding-left: 20px;\">No flights are currently flying to this airport</p>";
    }
    echo "</center>";
 

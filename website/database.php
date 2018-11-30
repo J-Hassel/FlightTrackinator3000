@@ -64,7 +64,7 @@ require_once "config.php";
    
       <tr>
          <td>
-            <input name = "Submit" type = "submit" id = "Submit">
+            <input name = "Submit" type = "submit" id = "Submit" value="View Table">
          </td>
       </tr>
    
@@ -78,9 +78,31 @@ function mysqli_field_name($result, $field_offset)
     return is_object($properties) ? $properties->name : null;
 }
 
-function build_table($result, $link, $table_name){
-   if ($result->num_rows > 0) {
-      echo "<center><h1>" . $table_name . "</h1>";
+function build_table($result, $link, $table_name)
+{
+   if ($result->num_rows > 0) 
+   {
+      switch($table_name)
+      {
+        case 'airline':
+          $heading = "Airlines Database";
+          break;
+
+        case 'airplane':
+          $heading = "Airplanes Database";
+          break;
+
+        case 'flight':
+          $heading = "Flights Database";
+          break;
+
+        case 'airport':
+          $heading = "Airports Database";
+          break;
+
+
+      }
+      echo "<center><h1 style=\"padding: 20px;\">" . $heading . "</h1>";
       $page = "#";
       $var = "";
       $headVal = "";
