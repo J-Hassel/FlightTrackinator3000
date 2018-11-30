@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2018 at 10:26 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.12
+-- Generation Time: Nov 30, 2018 at 04:05 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -17064,13 +17064,21 @@ INSERT INTO `flight` (`aircraft_id`, `altitude`, `latitude`, `longitude`, `direc
 --
 
 CREATE TABLE `review` (
-  `ID` int(11) NOT NULL,
+  `refID` text NOT NULL,
   `type` text NOT NULL,
   `username` text NOT NULL,
-  `Rating` int(11) NOT NULL,
-  `Time` datetime NOT NULL,
-  `Comment` text NOT NULL
+  `rating` int(11) NOT NULL,
+  `time` datetime NOT NULL,
+  `comment` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`refID`, `type`, `username`, `rating`, `time`, `comment`) VALUES
+('BKPY', 'aircraft', 'Darth_Vader', 4, '2018-11-30 00:00:00', 'could have been faster'),
+('BKPY', 'aircraft', 'Elon_Musk', 1, '2018-11-13 00:00:00', 'Absolutely disgusting!');
 
 -- --------------------------------------------------------
 
