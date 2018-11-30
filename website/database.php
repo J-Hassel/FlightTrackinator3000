@@ -46,7 +46,7 @@ require_once "config.php";
    </style>
 </head>
 <body>
-  <<?php include_once("header.php"); ?>
+  <?php include_once("header.php"); ?>
 
 <center>
 <form  action = "<?php $_PHP_SELF ?>">

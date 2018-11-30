@@ -51,20 +51,14 @@ require_once "config.php";
 //$output = shell_exec("python flight_parser.py");
 //header("Refresh:30");
 header("Content-Type: text/html;charset=UTF-8");
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "flighttrackinator3000";
 
 $srcLat = "";
 $srcLng = "";
 $dstLat = "";
 $dstLng= "";
 
-// Establish connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+if ($link->connect_error) {
+  die("Connection failed: " . $link->connect_error);
 }
 
 function mysqli_field_name($result, $field_offset)
@@ -74,11 +68,22 @@ function mysqli_field_name($result, $field_offset)
 }
 
 $aircraft_id = $_GET['aircraft_id'];
+
+$flightRow = $link->query("SELECT name FROM flight, airline WHERE aircraft_id = '$aircraft_id' AND airline = iataCode")->fetch_assoc();
+$airline = $flightRow['name'];
+
+$flightRow = $link->query("SELECT flight_num, city FROM flight, airport WHERE aircraft_id = '$aircraft_id' AND source = iataCode")->fetch_assoc();
+$flight_num = $flightRow['flight_num'];
+$srcCity = $flightRow['city'];
+
+$flightRow = $link->query("SELECT city FROM flight, airport WHERE aircraft_id = '$aircraft_id' AND destination = iataCode")->fetch_assoc();
+$dstCity = $flightRow['city'];
+
 $sql = "SELECT * FROM flight WHERE aircraft_id = '$aircraft_id'";
-$result = $conn->query($sql);
+$result = $link->query($sql);
 if ($result->num_rows > 0) {
-  echo "<center><h1> $aircraft_id </h1>";
-  $count = mysqli_field_count($conn);
+  echo "<center><h1>$airline - Flight $flight_num :: $srcCity -> $dstCity</h1>";
+  $count = mysqli_field_count($link);
   $header = "<table id='t01'><tr>";
   for($x = 0; $x < $count; $x++){
      $header = $header . "<th>" . mysqli_field_name($result, $x) . "</th>";
@@ -107,7 +112,7 @@ if ($result->num_rows > 0) {
 	  $source = $row['source'];
 	  $destination = $row['destination'];
 	  
-	  $srcResult = $conn->query("SELECT * FROM airport WHERE iataCode = '$source'");
+	  $srcResult = $link->query("SELECT * FROM airport WHERE iataCode = '$source'");
 	  if($srcResult->num_rows > 0) {
             while($srcRow = $srcResult->fetch_assoc()) {
                 $srcLat = $srcRow['latitude'];
@@ -115,7 +120,7 @@ if ($result->num_rows > 0) {
 			}
 	  }
       
-      $dstResult = $conn->query("SELECT * FROM airport WHERE iataCode = '$destination'");
+      $dstResult = $link->query("SELECT * FROM airport WHERE iataCode = '$destination'");
 	  if($dstResult->num_rows > 0) {
             while($dstRow = $dstResult->fetch_assoc()) {
                 $dstLat = $dstRow['latitude'];
@@ -132,7 +137,7 @@ if ($result->num_rows > 0) {
 }
 
 
-$conn->close();
+$link->close();
 ?>
 
 

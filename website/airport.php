@@ -4,7 +4,6 @@
 // Initialize the session
 session_start();
 
- 
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
@@ -22,7 +21,7 @@ require_once "config.php";
     <style>
       /* Set the size of the div element that contains the map */
       #map {
-        height: 600px;  /* The height is 400 pixels */
+        height: 600px;  /* The height is 600 pixels */
         width: 100%;  /* The width is the width of the web page */
        }
       table#t01 tr:nth-child(even) {
@@ -47,20 +46,14 @@ require_once "config.php";
         <?php
         //header("Refresh:30");
         header("Content-Type: text/html;charset=UTF-8");
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "flighttrackinator3000";
 
         $srcLat = "";
         $srcLng = "";
         $dstLat = "";
         $dstLng= "";
 
-        // Establish
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        if ($conn->connect_error) {
-          die("Connection failed: " . $conn->connect_error);
+        if ($link->connect_error) {
+          die("Connection failed: " . $link->connect_error);
         }
 
         function mysqli_field_name($result, $field_offset)
@@ -72,7 +65,7 @@ require_once "config.php";
         // Display name of airport
         $iataCode = $_GET['iataCode'];
         $sql = "SELECT * FROM airport WHERE iataCode = '$iataCode'";
-        $result = $conn->query($sql);
+        $result = $link->query($sql);
         $row = $result->fetch_assoc();
         $airport = $row[mysqli_field_name($result, 0)];
         echo "<center><h1> $airport </h1>";
@@ -84,9 +77,9 @@ require_once "config.php";
     <h3> <?php echo $iataCode?> </h3>
 <?php    
 $sql = "SELECT * FROM airport WHERE iataCode = '$iataCode'";
-$result = $conn->query($sql);
+$result = $link->query($sql);
 if ($result->num_rows > 0) {
-  $count = mysqli_field_count($conn);
+  $count = mysqli_field_count($link);
   $header = "<table id='t01'><tr>";
   for($x = 0; $x < $count; $x++){
      $header = $header . "<th>" . mysqli_field_name($result, $x) . "</th>";
@@ -106,10 +99,10 @@ if ($result->num_rows > 0) {
    }
    echo "</table>";
    echo "<h1> Flights From $iataCode</h1>";
-   $from = $conn->query("SELECT * FROM flight WHERE source = '$iataCode'");
+   $from = $link->query("SELECT * FROM flight WHERE source = '$iataCode'");
    $locs = array();
    if ($from->num_rows > 0) {
-          $count = mysqli_field_count($conn);
+          $count = mysqli_field_count($link);
           $header = "<table id='t01'><tr>";
           for($x = 0; $x < $count; $x++){
              $header = $header . "<th>" . mysqli_field_name($from, $x) . "</th>";
@@ -138,9 +131,9 @@ if ($result->num_rows > 0) {
        echo "No flights have currently departed from this airport";
    }
    echo "<h1> Flights To $iataCode</h1>";
-   $to = $conn->query("SELECT * FROM flight WHERE destination = '$iataCode'");
+   $to = $link->query("SELECT * FROM flight WHERE destination = '$iataCode'");
    if ($to->num_rows > 0) {
-          $count = mysqli_field_count($conn);
+          $count = mysqli_field_count($link);
           $header = "<table id='t01'><tr>";
           for($x = 0; $x < $count; $x++){
              $header = $header . "<th>" . mysqli_field_name($to, $x) . "</th>";
@@ -175,7 +168,7 @@ if ($result->num_rows > 0) {
    echo "0 results";
 }
 
-$conn->close();
+$link->close();
 ?>
     <script>
     function initMap() {

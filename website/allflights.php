@@ -8,6 +8,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+
+// Include config file
+require_once "config.php";
 ?>
 
 
@@ -17,19 +20,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
    <body>
-    <?php include_once("header.php"); ?>
+   <?php include_once("header.php"); ?>
    <?php
       //header("Refresh:30");
       header("Content-Type: text/html;charset=UTF-8");
-      $servername = "localhost";
-      $username = "root";
-      $password = "";
-      $dbname = "flighttrackinator3000";
 
-      // Establish
-      $conn = new mysqli($servername, $username, $password, $dbname);
-      if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+      if ($link->connect_error) {
+        die("Connection failed: " . $link->connect_error);
       }
 
       function mysqli_field_name($result, $field_offset)
@@ -39,8 +36,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       }
 
       $sql = "SELECT * FROM flight";
-      $result = $conn->query($sql);
-
+      $result = $link->query($sql);
       ?>
          
 </style>
@@ -69,7 +65,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
    <?php
       $locs=array();
      if ($result->num_rows > 0) {
-       $count = mysqli_field_count($conn);
+       $count = mysqli_field_count($link);
        $header = "<table id='t01'><tr>";
        for($x = 0; $x < $count; $x++){
           $header = $header . "<th>" . mysqli_field_name($result, $x) . "</th>";
@@ -96,7 +92,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       } else {
          echo "0 results";
       }
-   $conn->close();
+   $link->close();
    ?>
    <script>
 // Initialize and add the map
