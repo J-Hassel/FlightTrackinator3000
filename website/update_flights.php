@@ -11,7 +11,7 @@
 
    $json = json_decode($result);
    $link->query("DELETE FROM flight");
-   $link->query("ALTER TABLE flight ADD PRIMARY KEY(aircraft_id)");
+   $link->query("ALTER TABLE flight ADD PRIMARY KEY(airline, flight_num)");
    foreach($json as $obj){
       if($obj->status == "en-route"){
          $aircraft_id = $obj->aircraft->regNumber;

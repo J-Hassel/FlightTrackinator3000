@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?php
-
 // Initialize the session
 session_start();
-
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
-
 // Include config file
 require_once "config.php";
 ?>
@@ -34,7 +31,11 @@ require_once "config.php";
           background-color: black;
           color: white;
           width: 0.5%;
+          font-size: 10pt;
       }
+      .floatLeft { width: 50%; float: left; }
+      .floatRight {width: 50%; float: right; }
+      .container { overflow: hidden; }
     </style>
   </head>
   <body>
@@ -42,26 +43,22 @@ require_once "config.php";
     <?php include_once("header.php"); ?>
 
       <div>
-        
+
         <?php
         //header("Refresh:30");
         header("Content-Type: text/html;charset=UTF-8");
-
         $srcLat = "";
         $srcLng = "";
         $dstLat = "";
         $dstLng= "";
-
         if ($link->connect_error) {
           die("Connection failed: " . $link->connect_error);
         }
-
         function mysqli_field_name($result, $field_offset)
         {
             $properties = mysqli_fetch_field_direct($result, $field_offset);
             return is_object($properties) ? $properties->name : null;
         }
-
         // Display name of airport
         $iataCode = $_GET['iataCode'];
         $sql = "SELECT * FROM airport WHERE iataCode = '$iataCode'";
@@ -74,7 +71,7 @@ require_once "config.php";
 
     <!--The div element for the map -->
     <div id="map"></div>
-<?php    
+<?php
 $sql = "SELECT * FROM airport WHERE iataCode = '$iataCode'";
 $result = $link->query($sql);
 if ($result->num_rows > 0) {
@@ -91,13 +88,15 @@ if ($result->num_rows > 0) {
       for($x = 0; $x < $count; $x++){
         $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
       }
-      
+
       $latitude = $row['latitude'];
       $longitude = $row['longitude'];
       echo utf8_encode($line)."</tr>";
    }
    echo "</table>";
-   echo "<h1 style=\"padding: 20px;\"> Flights From $airport</h1>";
+   include_once("review.php");
+   printReview("airport", $iataCode);
+   echo "<div class='container'><div class='floatLeft'><h1 style='padding: 10px; font-size: 18pt;'> Flights From $airport</h1>";
    $from = $link->query("SELECT * FROM flight WHERE source = '$iataCode'");
    $locs = array();
    if ($from->num_rows > 0) {
@@ -129,7 +128,7 @@ if ($result->num_rows > 0) {
    }else{
        echo "<p style=\"padding-left: 20px;\">No flights have currently departed from this airport</p>";
    }
-   echo "<h1 style=\"padding: 20px;\"> Flights To $airport</h1>";
+   echo "</div><div class='floatRight'><h1 style='padding: 10px; font-size: 18pt;'> Flights To $airport</h1>";
    $to = $link->query("SELECT * FROM flight WHERE destination = '$iataCode'");
    if ($to->num_rows > 0) {
           $count = mysqli_field_count($link);
@@ -160,13 +159,11 @@ if ($result->num_rows > 0) {
    }else{
        echo "<p style=\"padding-left: 20px;\">No flights are currently flying to this airport</p>";
    }
-   echo "</center>";
-
+   echo "</div></div></center>";
 ;
 } else {
    echo "0 results";
 }
-
 $link->close();
 ?>
     <script>
@@ -179,14 +176,14 @@ $link->close();
       var map = new google.maps.Map(
           document.getElementById('map'), {zoom: 4, center: flightLocation});
       // The marker, positioned at flightLocation
-      
+
       var planeSymbol = {
         path: 'M362.985,430.724l-10.248,51.234l62.332,57.969l-3.293,26.145 l-71.345-23.599l-2.001,13.069l-2.057-13.529l-71.278,22.928l-5.762-23.984l64.097-59.271l-8.913-51.359l0.858-114.43 l-21.945-11.338l-189.358,88.76l-1.18-32.262l213.344-180.08l0.875-107.436l7.973-32.005l7.642-12.054l7.377-3.958l9.238,3.65 l6.367,14.925l7.369,30.363v106.375l211.592,182.082l-1.496,32.247l-188.479-90.61l-21.616,10.087l-0.094,115.684',
         scale: 0.05,
         strokeOpacity: 1,
         color: 'black',
         strokeWeight: 1,
-        anchor: new google.maps.Point(400, 400)	
+        anchor: new google.maps.Point(400, 400)
       };
       var infoWindow = new google.maps.InfoWindow(), marker, airportMarker, i;
       for(i = 0; i < locations.length; i++){
@@ -218,15 +215,15 @@ $link->close();
                }
             })(marker, i));
           }
-          
+
       }
       airportMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
     };
-    
+
     var names = [
         "<?php echo $iataCode?>"
     ]
-    
+
     var headings = [
         ""
     ]
@@ -240,14 +237,13 @@ $link->close();
     var infoWindowContent = [
         "<?php echo $airport; ?>"
     ];
-    
+
     <?php foreach($locs as $key => $val){ ?>
         locations.push([parseFloat('<?php echo $val[0]; ?>'),parseFloat('<?php echo $val[1]; ?>')]);
         names.push('<?php echo $val[2]; ?>');
         headings.push('<?php echo $val[3]; ?>');
         infoWindowContent.push("<?php echo $val[4]; ?>");
     <?php } ?>
-        
 
     </script>
 
