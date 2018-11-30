@@ -10,7 +10,7 @@ for line in open("airplanes.dat", encoding="utf8"):
     iataCode = line.split(',')[1][1:-1]
     icaoCode = line.split(',')[2][1:-2]
 
-    if iataCode == "" and icaoCode == "":
+    if icaoCode == "":
         continue
 
     sql = "INSERT INTO airplane(name, iataCode, icaoCode, capacity) VALUES (%s, %s, %s, %s);"

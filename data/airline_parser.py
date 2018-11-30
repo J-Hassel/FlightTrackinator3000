@@ -9,8 +9,9 @@ for line in open("airlines.dat", encoding="utf8"):
     name = line.split(',')[1][1:-1]
     iataCode = line.split(',')[3][1:-1]
     country = line.split(',')[6][1:-1]
+    operational = line.split(',')[7][1:-2]
 
-    if iataCode == "" or country == "":
+    if iataCode == "" or country == "" or operational == "N":
         continue
 
     sql = "INSERT INTO airline(name, iataCode, country) VALUES (%s, %s, %s);"
