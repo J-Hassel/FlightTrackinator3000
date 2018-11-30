@@ -15,11 +15,11 @@
    foreach($json as $obj){
       if($obj->status == "en-route"){
          $aircraft_id = $obj->aircraft->regNumber;
-         $altitude = $obj->geography->altitude;
+         $altitude = round(intval($obj->geography->altitude) * 3.28084, 1);
          $latitude = $obj->geography->latitude;
          $longitude = $obj->geography->longitude;
          $direction = $obj->geography->direction;
-         $speed = $obj->speed->horizontal;
+         $speed = round(intval($obj->speed->horizontal) * 0.621371, 1);
          $airline = $obj->airline->iataCode;
          $flight_num = $obj->flight->number;
          $aircraft_icao = $obj->aircraft->icaoCode;

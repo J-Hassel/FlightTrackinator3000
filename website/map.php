@@ -19,9 +19,7 @@ require_once "config.php";
 
 <head>
   <link rel="stylesheet" type="text/css" href="style.css">
-
-
- <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   
   <style>
     /* Set the size of the div element that contains the map */
@@ -197,11 +195,12 @@ $link->close();
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-dMxwYbOXRN84TnGsGhVS7xdPDbzMS54&callback=initMap">
     </script>
+  </body>
 
+  <footer>
     <?php
         include_once("review.php");
         printReview("aircraft", $aircraft_id);
-    ?>
-
-  </body>
+    ?>    
+  </footer>
 </html>
