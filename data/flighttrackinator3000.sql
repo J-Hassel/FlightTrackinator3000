@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2018 at 04:05 AM
+-- Generation Time: Nov 30, 2018 at 04:38 AM
 -- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.10
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -3330,6 +3330,7 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Deir ez-Zor Airport', 'DEZ', 'Deire Zor', 'Syria', 35.2854, 40.1760),
 ('Bassel Al-Assad International Airport', 'LTK', 'Latakia', 'Syria', 35.4011, 35.9487),
 ('Palmyra Airport', 'PMS', 'Palmyra', 'Syria', 34.5574, 38.3169),
+('Doha International Airport', 'DOH', 'Doha', 'Qatar', 25.2611, 51.5651),
 ('Canton Island Airport', 'CIS', 'Canton Island', 'Kiribati', -2.7681, -171.7100),
 ('Rota International Airport', 'ROP', 'Rota', 'Northern Mariana Islands', 14.1743, 145.2430),
 ('Saipan International Airport', 'SPN', 'Saipan', 'Northern Mariana Islands', 15.1190, 145.7290),
@@ -3730,9 +3731,9 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Alberto Carnevalli Airport', 'MRD', 'Merida', 'Venezuela', 8.5821, -71.1610),
 ('Del Caribe Santiago Mariño International Airport', 'PMV', 'Porlamar', 'Venezuela', 10.9126, -63.9666),
 ('Simón Bolívar International Airport', 'CCS', 'Caracas', 'Venezuela', 10.6031, -66.9906),
-('Maturín Airport', 'MUN', 'Maturin', 'Venezuela', 9.7545, -63.1474),
-('Cacique Aramare Airport', 'PYH', 'Puerto Ayacucho', 'Venezuela', 5.6200, -67.6061);
+('Maturín Airport', 'MUN', 'Maturin', 'Venezuela', 9.7545, -63.1474);
 INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longitude`) VALUES
+('Cacique Aramare Airport', 'PYH', 'Puerto Ayacucho', 'Venezuela', 5.6200, -67.6061),
 ('General Bartolome Salom International Airport', 'PBL', 'Puerto Cabello', 'Venezuela', 10.4805, -68.0730),
 ('General Manuel Carlos Piar International Airport', 'PZO', 'Guayana', 'Venezuela', 8.2885, -62.7604),
 ('San Antonio Del Tachira Airport', 'SVZ', 'San Antonio', 'Venezuela', 7.8408, -72.4397),
@@ -4352,9 +4353,9 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Ellsworth Air Force Base', 'RCA', 'Rapid City', 'United States', 44.1450, -103.1040),
 ('Raleigh Durham International Airport', 'RDU', 'Raleigh-durham', 'United States', 35.8776, -78.7875),
 ('James M Cox Dayton International Airport', 'DAY', 'Dayton', 'United States', 39.9024, -84.2194),
-('Kenai Municipal Airport', 'ENA', 'Kenai', 'United States', 60.5731, -151.2450),
-('Mc Alester Regional Airport', 'MLC', 'Mcalester', 'United States', 34.8824, -95.7835);
+('Kenai Municipal Airport', 'ENA', 'Kenai', 'United States', 60.5731, -151.2450);
 INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longitude`) VALUES
+('Mc Alester Regional Airport', 'MLC', 'Mcalester', 'United States', 34.8824, -95.7835),
 ('Niagara Falls International Airport', 'IAG', 'Niagara Falls', 'United States', 43.1073, -78.9462),
 ('Coulter Field', 'CFD', 'Bryan', 'United States', 30.7157, -96.3314),
 ('Newport News Williamsburg International Airport', 'PHF', 'Newport News', 'United States', 37.1319, -76.4930),
@@ -4945,9 +4946,9 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Chamonate Airport', 'CPO', 'Copiapo', 'Chile', -27.2969, -70.4131),
 ('Taba International Airport', 'TCP', 'Taba', 'Egypt', 29.5878, 34.7781),
 ('Edward Bodden Airfield', 'LYB', 'Little Cayman', 'Cayman Islands', 19.6670, -80.1000),
-('Milas Bodrum International Airport', 'BJV', 'Bodrum', 'Turkey', 37.2506, 27.6643),
-('Tabarka 7 Novembre Airport', 'TBJ', 'Tabarka', 'Tunisia', 36.9800, 8.8769);
+('Milas Bodrum International Airport', 'BJV', 'Bodrum', 'Turkey', 37.2506, 27.6643);
 INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longitude`) VALUES
+('Tabarka 7 Novembre Airport', 'TBJ', 'Tabarka', 'Tunisia', 36.9800, 8.8769),
 ('Sabiha Gökçen International Airport', 'SAW', 'Istanbul', 'Turkey', 40.8986, 29.3092),
 ('University Park Airport', 'SCE', 'State College Pennsylvania', 'United States', 40.8493, -77.8487),
 ('Broome International Airport', 'BME', 'Broome', 'Australia', -17.9447, 122.2320),
@@ -5599,9 +5600,9 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Ji-Paraná Airport', 'JPR', 'Ji-Paraná', 'Brazil', -10.8708, -61.8465),
 ('Codrington Airport', 'BBQ', 'Codrington', 'Antigua and Barbuda', 17.6358, -61.8286),
 ('La Désirade Airport', 'DSD', 'Grande Anse', 'Guadeloupe', 16.2969, -61.0844),
-('Baillif Airport', 'BBR', 'Basse Terre', 'Guadeloupe', 16.0133, -61.7422),
-('St-François Airport', 'SFC', 'St-François', 'Guadeloupe', 16.2578, -61.2625);
+('Baillif Airport', 'BBR', 'Basse Terre', 'Guadeloupe', 16.0133, -61.7422);
 INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longitude`) VALUES
+('St-François Airport', 'SFC', 'St-François', 'Guadeloupe', 16.2578, -61.2625),
 ('Les Bases Airport', 'GBJ', 'Grand Bourg', 'Guadeloupe', 15.8687, -61.2700),
 ('Vance W. Amory International Airport', 'NEV', 'Charlestown', 'Saint Kitts and Nevis', 17.2057, -62.5899),
 ('Virgin Gorda Airport', 'VIJ', 'Spanish Town', 'British Virgin Islands', 18.4464, -64.4275),
@@ -6258,9 +6259,9 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Nikolai Airport', 'NIB', 'Nikolai', 'United States', 63.0186, -154.3580),
 ('Akiak Airport', 'AKI', 'Akiak', 'United States', 60.9029, -161.2310),
 ('Wainwright Airport', 'AIN', 'Wainwright', 'United States', 70.6380, -159.9950),
-('Zapala Airport', 'APZ', 'ZAPALA', 'Argentina', -38.9755, -70.1136),
-('Rincon De Los Sauces Airport', 'RDS', 'Rincon de los Sauces', 'Argentina', -37.3906, -68.9042);
+('Zapala Airport', 'APZ', 'ZAPALA', 'Argentina', -38.9755, -70.1136);
 INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longitude`) VALUES
+('Rincon De Los Sauces Airport', 'RDS', 'Rincon de los Sauces', 'Argentina', -37.3906, -68.9042),
 ('Tte. Julio Gallardo Airport', 'PNT', 'Puerto Natales', 'Chile', -51.6715, -72.5284),
 ('Sierra Grande Airport', 'SGV', 'Sierra Grande', 'Argentina', -41.5917, -65.3394),
 ('Cabo F.A.A. H. R. Bordón Airport', 'IGB', 'Ingeniero Jacobacci', 'Argentina', -41.3209, -69.5749),
@@ -6512,7 +6513,7 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Hernesaari Heliport', 'HEN', 'Helsinki', 'Finland', 60.1478, 24.9244),
 ('Lakeland Linder Regional Airport', 'LAL', 'Lakeland', 'United States', 27.9889, -82.0186),
 ('Syangboche Airport', 'SYH', 'Syangboche', 'Nepal', 27.8112, 86.7124),
-('Indianola Municipal Airport', 'IDL', 'New York', 'United States', 33.4857, -90.6789),
+('Indianola Municipal Airport', 'IDL', 'Indianola', 'United States', 33.4857, -90.6789),
 ('French Valley Airport', 'RBK', 'Murrieta-Temecula', 'United States', 33.5742, -117.1280),
 ('Oristano-Fenosu Airport', 'FNU', 'Oristano', 'Italy', 39.8953, 8.6427),
 ('Mysore Airport', 'MYQ', 'Mysore', 'India', 12.3072, 76.6497),
@@ -6890,9 +6891,9 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Kooddoo Airport', 'GKK', 'Kooddoo', 'Maldives', 0.7324, 73.4336),
 ('Rochester Airport', 'RCS', 'Rochester', 'United Kingdom', 51.3519, 0.5033),
 ('Termas de Río Hondo international Airport', 'RHD', 'Rio Hondo', 'Argentina', -27.4966, -64.9360),
-('Keetmanshoop Airport', 'KMP', 'Keetmanshoop', 'Namibia', -26.5398, 18.1114),
-('Iowa City Municipal Airport', 'IOW', 'Iowa City', 'United States', 41.6392, -91.5465);
+('Keetmanshoop Airport', 'KMP', 'Keetmanshoop', 'Namibia', -26.5398, 18.1114);
 INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longitude`) VALUES
+('Iowa City Municipal Airport', 'IOW', 'Iowa City', 'United States', 41.6392, -91.5465),
 ('Turpan Jiaohe Airport', 'TLQ', 'Turpan', 'China', 43.0308, 89.0987),
 ('Windom Municipal Airport', 'MWM', 'Windom', 'United States', 43.9134, -95.1094),
 ('Lee Airport', 'ANP', 'Annapolis', 'United States', 38.9429, -76.5684),
@@ -7401,8 +7402,7 @@ INSERT INTO `airport` (`name`, `iataCode`, `city`, `country`, `latitude`, `longi
 ('Rugao Air Base', 'RUG', 'Rugao', 'China', 32.2579, 120.5017),
 ('Wuhu Air Base', 'WHU', 'Wuhu', 'China', 31.3906, 118.4090),
 ('Shanshan Airport', 'SXJ', 'Shanshan', 'China', 42.9117, 90.2475),
-('Yingkou Lanqi Airport', 'YKH', 'Yingkou', 'China', 40.5425, 122.3586),
-('Hamad International Airport', 'DOH', 'Doha', 'Qatar', 25.2647, 51.5596);
+('Yingkou Lanqi Airport', 'YKH', 'Yingkou', 'China', 40.5425, 122.3586);
 
 -- --------------------------------------------------------
 
