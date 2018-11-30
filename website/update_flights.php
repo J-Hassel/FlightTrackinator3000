@@ -28,6 +28,9 @@
          if($airline == "" or $aircraft_icao == "" or $source == "" or $destination == ""){
             continue;
          }
+         if(preg_match("/[a-z]/i", $flight_num)){
+             continue;
+         }
          $sql = "INSERT INTO flight (aircraft_id, altitude, latitude, longitude, direction, speed, airline, flight_num, aircraft_icao, source, destination) VALUES ('$aircraft_id', '$altitude', '$latitude', '$longitude', '$direction', '$speed', '$airline', '$flight_num', '$aircraft_icao', '$source', '$destination')";
          $link->query($sql);
       }
