@@ -27,7 +27,7 @@ if(isset($_GET['deleteReview'])) {
 function updateReview($type, $id, $username, $url) {
 	global $conn;
 
-	$date = date("d/m/Y");
+	$date = date('Y-m-d H:i:s');
 
 	/* Attempt to update review */
 	$sql = "UPDATE
@@ -47,6 +47,13 @@ function updateReview($type, $id, $username, $url) {
 				alert('Error updating review!');
 				</script>";
 	}
+}
+
+function createReview($conn, $type, $id, $username, $rating, $comment){
+   $date = date('Y-m-d H:i:s');
+   $sql = "INSERT INTO review(refID, type, username, rating, time, comment) VALUES ('$id', '$type', '$username', '$rating', '$date', '$comment')";
+   $result = $conn->query($sql);
+   return $result;
 }
 
 
@@ -132,16 +139,32 @@ function printReview($type, $id) {
 			echo $row["time"] . "<br>";
 			echo $row["comment"] . "<br><br>";
 		}
-	}
-
-if(!$review_exists) {
-	echo "create review";
+	}else{
+      echo "No Reviews";
+   }
 }
 
-}
+
+if(isset($_POST['createReview'])){
+   session_start();
+   // Check if the user is logged in, if not then redirect him to login page
+   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+       header("location: login.php");
+       exit;
+   }
+   $id = $_POST['id'];
+   $type = $_POST['type'];
+   $rating = $_POST['rating'];
+   $comment = $_POST['comment'];
+   $username = $_SESSION['username'];
+   if(createReview($conn, $type, $id, $username, $rating, $comment) == true){
+      echo "SUBMIT";
+   }else{
+      echo "OH NO";
+   }
+}else{
 ?>
 
-<!-- https://www.w3schools.com/howto/howto_js_popup_form.asp -->
 </body>
 </html>
 
@@ -191,6 +214,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
   background: #f1f1f1;
 }
 
+textarea{
+   width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
 /* When the inputs get focus, do something */
 .form-container input[type=text]:focus, .form-container input[type=password]:focus {
   background-color: #ddd;
@@ -218,38 +249,126 @@ body {font-family: Arial, Helvetica, sans-serif;}
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
+
+@.rating {
+    float:left;
+    width:300px;
+}
+.rating span { float:right; position:relative; }
+.rating span input {
+    position:absolute;
+    top:0px;
+    left:0px;
+    opacity:0;
+}
+.rating span label {
+    display:inline-block;
+    width:30px;
+    height:30px;
+    text-align:center;
+    color:#FFF;
+    background:#ccc;
+    font-size:30px;
+    margin-right:2px;
+    line-height:30px;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+}
+.rating span:hover ~ span label,
+.rating span:hover label,
+.rating span.checked label,
+.rating span.checked ~ span label {
+    background:#F90;
+    color:#FFF;
+}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
-<button class="open-button" onclick="openForm()">Open Form</button>
+<button class="open-button" onclick="openForm()">Create Review</button>
 
 <div class="form-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
+  <form class="form-container">
     <h1>Login</h1>
 
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
+    <label for="title"><b>Rating</b></label>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <div class="rating">
+    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5" class="fa fa-star"></label></span>
+    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4" class="fa fa-star"></label></span>
+    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3" class="fa fa-star"></label></span>
+    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2" class="fa fa-star"></label></span>
+    <span><input type="radio" name="rating" id="str1" value="1"><label for="str1" class="fa fa-star"></label></span>
+      </div>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label for="comment"><b>Comment</b></label>
+    <textarea id="comment" rows="4" cols="50" placeholder="Enter Comment" name="comment" form="myForm"></textarea>
 
-    <button type="submit" class="btn">Login</button>
+    <button type="button" onclick="createReview()" class="btn">Submit Review</button>
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
 
 <script>
+var userRating;
+
+$(document).ready(function(){
+    // Check Radio-box
+    $(".rating input:radio").attr("checked", false);
+
+    $('.rating input').click(function () {
+        $(".rating span").removeClass('checked');
+        $(this).parent().addClass('checked');
+    });
+
+    $('input:radio').change(
+      function(){
+        userRating = this.value;
+    }); 
+});
 function openForm() {
+   if(document.getElementById("myForm").style.display == "none"){
     document.getElementById("myForm").style.display = "block";
+   }else{
+      document.getElementById("myForm").style.display = "none"
+   }
 }
 
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
+
+function createReview() {
+   var type, id;
+   "<?php 
+   $page = basename($_SERVER['PHP_SELF']);
+   if($page == 'airport.php'){ 
+   ?>"
+      type = 'airport';
+      id = "<?php echo $iataCode ?>";
+   "<?php
+   }
+   ?>"
+   var rating = userRating;
+   var comment = document.getElementById("comment").value;
+   var dataString = "createReview=1&rating=" + rating + "&comment=" + comment + "&id=" + id + "&type=" + type;
+    $.ajax({
+      url:"review.php",
+      type: "POST",
+      data: dataString,
+      success: function() {
+         window.location.reload();
+      }
+   });
+   closeForm();
+}
 </script>
 <br>
 
+<?php
+}
+?>
+
 </body>
 </html>
-
