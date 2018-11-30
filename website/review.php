@@ -1,6 +1,6 @@
 <?php
 // include_once("config.php");
-
+session_start();
 /* Database connection start */
 $servername = "localhost";
 $username = "root";
@@ -11,49 +11,27 @@ if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
-require_once "config.php";
 
-
-/* Initialize current data for when the user leaves a review */
-$revType;
-$revID;
-$revUser = $_SESSION['username'];
-$revDate = date("m/d/Y");
-$revRating = 0;
-$revComment = "";
-
-
-function printReview($type, $id) {
-	if(!isset($type) || !isset($id)) {
-		echo "Error displaying review.";
-		return;
-	}
-	
-	global $conn;
-
-	$sql = "SELECT *
-			FROM	review
-			WHERE	type = '$type'
-			AND		refID = '$id'";
-	$result = $conn->query($sql);
-
-	if($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) {
-			echo $row["username"] . "<br>";
-			echo "Score: " . $row["rating"] . "<br>";
-			echo $row["time"] . "<br>";
-			echo $row["comment"] . "<br><br>";
-		}
-	}
-	
-
-	// echo $revUser;
-	// echo $revDate;
-	// echo $revRating;
-	// echo $revComment;
+/* Determine the type and ID */
+$typeAttribute;
+$idAttribute;
+switch(basename($_SERVER['PHP_SELF'])) {
+	case "my_reviews.php":
+		$typeAttribute = "self";
+		break;
+	case "map.php":
+		$typeAttribute = "aircraft_id";
+		break;
+	case "airport.php":
+		$typeAttribute = "iataCode";
+		break;
 }
 
-function printUserReview() { };
-
+/* Initialize current data for when the user leaves a review */
+$curUser = $_SESSION["username"];
+$curDate = date("m/d/Y");
+$curRating = 0;
+$curType = $typeAttribute;
+$curComment = "";
 
 ?>
