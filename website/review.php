@@ -79,6 +79,7 @@ function deleteReview($hashID) {
 $review_exists;
 
 function printReview($type, $id) {
+   
 	/* Escape if incorrect attribute found */
 	if(!isset($type) || !isset($id)) {
 		echo "Error displaying review.";
@@ -106,11 +107,25 @@ function printReview($type, $id) {
 
 				/* Update Review Option */
 				echo 	"<font size ="."2".">
-						<a href=".$current_url."&updateReview".">(update)"."</a>
+						<a onclick='openUpdate(\"". $row['hashID'] ."\");'>(update)"."</a>
 						</font>";
-				if(isset($_GET['updateReview'])) {
-					updateReview($type, $id, $_SESSION['username'], $current_url);
-				}
+               echo '<div class="form-popup" id="'.$row['hashID'].'">
+                     <form class="form-container">
+                        <label for="title"><b>Rating</b></label>
+                           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                           <div class="rating">
+                               <span><input type="radio" name="rating" id="str5" value="5"><label for="str5" class="fa fa-star"></label></span>
+                               <span><input type="radio" name="rating" id="str4" value="4"><label for="str4" class="fa fa-star"></label></span>
+                               <span><input type="radio" name="rating" id="str3" value="3"><label for="str3" class="fa fa-star"></label></span>
+                               <span><input type="radio" name="rating" id="str2" value="2"><label for="str2" class="fa fa-star"></label></span>
+                               <span><input type="radio" name="rating" id="str1" value="1"><label for="str1" class="fa fa-star"></label></span>
+                           </div>
+                        <label for="comment"><b>Comment</b></label>
+                        <textarea id="comment" rows="4" cols="50" name="comment" form="'.$row['hashID'].'">'. $row["comment"] .'</textarea>
+                        <button type="button" onclick="updateReview()" class="btn">Submit Review</button>
+                        <button type="button" class="btn cancel" onclick="openUpdate(\'$row[\'hashID\']\')">Cancel</button>
+                     </form>
+                  </div>';
 
 				/* Delete Review Option */
 				echo 	"<font size ="."2".">
@@ -118,10 +133,12 @@ function printReview($type, $id) {
 						</font>";
 			}
 			echo "<br>";
-
+   
+         echo "<div id='review". $row['hashID'] ."'>";
 			echo "Score: " . $row["rating"] . "<br>";
 			echo $row["time"] . "<br>";
 			echo $row["comment"] . "<br><br>";
+         echo "</div>";
 		}
 	}else{
       echo "No Reviews";
@@ -272,7 +289,7 @@ textarea{
 </head>
 <body>
 
-<button class="open-button" onclick="openForm()">Create Review</button>
+<button class="open-button" onclick="openForm('myForm')">Create Review</button>
 
 <div class="form-popup" id="myForm">
   <form class="form-container">
@@ -291,7 +308,7 @@ textarea{
     <textarea id="comment" rows="4" cols="50" placeholder="Enter Comment" name="comment" form="myForm"></textarea>
 
     <button type="button" onclick="createReview()" class="btn">Submit Review</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    <button type="button" class="btn cancel" onclick="closeForm('myForm')">Close</button>
   </form>
 </div>
 
@@ -312,16 +329,26 @@ $(document).ready(function(){
         userRating = this.value;
     }); 
 });
-function openForm() {
-   if(document.getElementById("myForm").style.display == "none"){
-    document.getElementById("myForm").style.display = "block";
+function openForm(id) {
+   if(document.getElementById(id).style.display == "none"){
+    document.getElementById(id).style.display = "block";
    }else{
-      document.getElementById("myForm").style.display = "none"
+      document.getElementById(id).style.display = "none"
    }
 }
 
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
+function openUpdate(id) {
+   if(document.getElementById(id).style.display == "none"){
+      document.getElementById("review" + id).style.display = "none";
+      document.getElementById(id).style.display = "block";
+   }else{
+      document.getElementById(id).style.display = "none"
+      document.getElementById("review" + id).style.display = "block";
+   }
+}
+
+function closeForm(id) {
+    document.getElementById(id).style.display = "none";
 }
 
 function createReview() {
