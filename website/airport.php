@@ -14,6 +14,7 @@ require_once "config.php";
 <html>
   <head>
     <title>Airport</title>
+    <meta charset="UTF-8">
     <style>
       /* Set the size of the div element that contains the map */
       #map {
@@ -64,7 +65,9 @@ require_once "config.php";
         $result = $link->query($sql);
         $row = $result->fetch_assoc();
         $airport = $row[mysqli_field_name($result, 0)];
-        echo "<center><h1 style=\"padding: 20px;\">" . utf8_encode($airport). "</h1>";
+        $city = $row[mysqli_field_name($result, 2)];
+        $country = $row[mysqli_field_name($result, 3)];
+        echo "<center><h1 style=\"padding: 20px;\">" . utf8_encode($airport) . " - " . utf8_encode($city) . ", " . utf8_encode($country) . "</h1>";
         ?>
       </div>
 
