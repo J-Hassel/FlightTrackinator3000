@@ -17,12 +17,6 @@ require_once "config.php";
 /* Initialize current data for when the user leaves a review */
 $current_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-/* Fixes the url after a redirect */
-if(isset($_GET['deleteReview'])) {
-	$the_OG_url_hell_yea = strtok($current_url, '&');
-	header("LOCATION: $the_OG_url_hell_yea");
-}	// this took me almost an hour to figure out...
-
 
 function updateReview($type, $id, $username, $url) {
 	global $conn;
@@ -51,29 +45,22 @@ function updateReview($type, $id, $username, $url) {
 
 function createReview($conn, $type, $id, $username, $rating, $comment){
    $date = date('Y-m-d H:i:s');
-   $sql = "INSERT INTO review(refID, type, username, rating, time, comment) VALUES ('$id', '$type', '$username', '$rating', '$date', '$comment')";
+   $unique = uniqid();
+   echo $unique;
+   $sql = "INSERT INTO review(hashID, refID, type, username, rating, time, comment) VALUES ('$unique', '$id', '$type', '$username', '$rating', '$date', '$comment')";
    $result = $conn->query($sql);
    return $result;
 }
 
 
-function deleteReview($type, $id, $username, $url) {
+function deleteReview($hashID) {
 	global $conn;
 
 	/* Attempt to delete from table */
-	$sql = "DELETE
-			FROM	review
-			WHERE	type = '$type'
-			AND		refID = '$id'
-			AND		username = '$username'";
+	$sql = "DELETE FROM	review WHERE hashID = '$hashID'";
 
 	/* Create pop-up notifying the user of result */
-	if ($conn->query($sql) === TRUE) {
-		echo 	"<script type='text/javascript'>
-				alert('Review successfully deleted!');
-				window.location.href = '$url';" 	// redirects user to original page
-				. "</script>";
-	} else {
+	if ($conn->query($sql) === FALSE) {
 		echo 	"<script type='text/javascript'>
 				alert('Error deleting review!');
 				</script>";
@@ -127,11 +114,8 @@ function printReview($type, $id) {
 
 				/* Delete Review Option */
 				echo 	"<font size ="."2".">
-						<a href=".$current_url."&deleteReview".">(delete)"."</a>
+						<a href='#' onclick='deleteReview(\"". $row['hashID'] ."\");'>(delete)"."</a>
 						</font>";
-				if(isset($_GET['deleteReview'])) {
-					deleteReview($type, $id, $_SESSION['username'], $current_url);
-				}
 			}
 			echo "<br>";
 
@@ -143,7 +127,9 @@ function printReview($type, $id) {
       echo "No Reviews";
    }
 }
-
+if(isset($_POST['deleteReview'])) {
+	deleteReview($_POST['hashID']);
+}
 
 if(isset($_POST['createReview'])){
    session_start();
@@ -290,7 +276,6 @@ textarea{
 
 <div class="form-popup" id="myForm">
   <form class="form-container">
-    <h1>Login</h1>
 
     <label for="title"><b>Rating</b></label>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -362,6 +347,18 @@ function createReview() {
       }
    });
    closeForm();
+}
+
+function deleteReview(hashID){
+   var dataString = "deleteReview=1&hashID=" + hashID;
+   $.ajax({
+      url:"review.php",
+      type: "POST",
+      data: dataString,
+      success: function() {
+         window.location.reload();
+      }
+   });
 }
 </script>
 <br>
