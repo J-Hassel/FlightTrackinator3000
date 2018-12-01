@@ -95,17 +95,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
  
 <!DOCTYPE html>
-<html lang="en">
+<html class="register">
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
+        body{ font: 14px sans-serif; background-color: rgba(0,0,0,0);}
+        header{ width: 100%; height: 80px; background-color: rgba(0,0,0,0.5); }
+        .wrapper{ width: 350px; padding: 20px; margin: 0 auto; margin-top: 200px; background-color: rgba(255,255,255,0.7); border-radius: 10px; }
+        .register{ background-image: url(bg-home.jpg); background-repeat: no-repeat; background-size: cover; }
+        .logo img{ width: 300px; height: auto; float: left; margin-top: 10px; margin-left: 100px;}
     </style>
 </head>
 <body>
+<header>
+    <div class "row">
+        <div class="logo">
+            <img src="logo.png">
+        </div>
+    </div>
+</header>
     <div class="wrapper">
         <h2>Sign Up</h2>
         <p>Please fill this form to create an account.</p>

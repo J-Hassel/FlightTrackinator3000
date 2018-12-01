@@ -50,25 +50,18 @@ require_once "config.php";
 
 <center>
 <form  action = "<?php $_PHP_SELF ?>">
-   <table width = "400" border = "0" cellspacing = "1" 
-      cellpadding = "2">
+
    
-      <tr>
-      <select name="table_name">
-       <option value="airline">Airlines</option>
-       <option value="airplane">Airplanes</option>
-       <option value="flight">Flights</option>
-       <option value="airport">Airports</option>
-      </select>
-      </tr>
-   
-      <tr>
-         <td>
-            <input name = "Submit" type = "submit" id = "Submit" value="View Table">
-         </td>
-      </tr>
-   
-   </table>
+
+  <select name="table_name" class="db-selector">
+    <option value="flight">Flights</option>
+    <option value="airline">Airlines</option>
+    <option value="airport">Airports</option>
+    <option value="airplane">Airplanes</option>
+  </select>
+
+  <input name = "Submit" type = "submit" id = "Submit" value="GO!" class="db-button">
+
 </form>
 </center>
 <?php
