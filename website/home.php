@@ -27,7 +27,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         select: function (event, ui) {
            event.preventDefault();
            var data = ui.item;
-          var arr = data.value.split(',');
+          var arr = data.value.split(' - ');
           $("#airline").val(arr[1])  
          }
        });
@@ -66,7 +66,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 				<div class="flight-number-form">
 					<input name="flight_num"id="flight_num" type="text" placeholder="Flight Number" class="form-control">
 				</div>
-            <input type="submit" value="Track Flight" name="Submit">
+            <input type="submit" value="Track Flight" name="Submit" class="ft-submit">
 			</form>
 		</div>
 

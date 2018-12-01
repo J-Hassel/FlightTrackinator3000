@@ -25,10 +25,10 @@ require_once "config.php";
    
    <style>
       table#t01 tr:nth-child(even) {
-          background-color: #eee;
+          background-color: #fff;
       }
       table#t01 tr:nth-child(odd) {
-         background-color: #fff;
+         background-color: #eee;
       }
       table#t01 th {
           background-color: black;

@@ -12,7 +12,7 @@ $searchTerm = $_GET['term'];
 $select =$conn->query("SELECT * FROM airline WHERE name LIKE '%".$searchTerm."%'");
 while ($row=$select->fetch_assoc()) 
 {
- $data[] = $row['name'] . ',' . $row['iataCode'];
+ $data[] = $row['name'] . ' - ' . $row['iataCode'];
 }
 //return json data
 echo json_encode($data);
