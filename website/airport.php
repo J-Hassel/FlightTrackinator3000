@@ -8,6 +8,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+
 // Include config file
 require_once "config.php";
 ?>
@@ -15,7 +16,7 @@ require_once "config.php";
 <html>
   <head>
     <title>Airport</title>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <style>
       /* Set the size of the div element that contains the map */
       #map {
@@ -47,7 +48,6 @@ require_once "config.php";
 
         <?php
         //header("Refresh:30");
-        header("Content-Type: text/html;charset=UTF-8");
         $srcLat = "";
         $srcLng = "";
         $dstLat = "";
@@ -255,6 +255,3 @@ $link->close();
     </script>
   </body>
 </html>
-<?php 
-//system("START /B python flight_parser.py > temp.txt");
-?>

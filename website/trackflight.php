@@ -47,7 +47,7 @@ require_once "config.php";
 <?php
 //$output = shell_exec("python flight_parser.py");
 //header("Refresh:30");
-header("Content-Type: text/html;charset=UTF-8");
+header("Content-Type: text/html; charset=utf-8");
 
 $srcLat = "";
 $srcLng = "";
