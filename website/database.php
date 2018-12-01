@@ -22,7 +22,6 @@ require_once "config.php";
     <meta name="google" content="notranslate">
     <title>Database</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   </meta>
    
    <style>
       table#t01 tr:nth-child(even) {
