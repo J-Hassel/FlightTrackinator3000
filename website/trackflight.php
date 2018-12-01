@@ -195,11 +195,4 @@ $link->close();
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-dMxwYbOXRN84TnGsGhVS7xdPDbzMS54&callback=initMap">
     </script>
   </body>
-
-  <footer>
-    <?php
-        include_once("review.php");
-        printReview("aircraft", $aircraft_id);
-    ?>    
-  </footer>
 </html>
