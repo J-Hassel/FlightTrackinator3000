@@ -14,7 +14,7 @@ $page = basename($_SERVER['PHP_SELF']);
             window.location.reload(true);
          };
       </script>
-		<div class "row">
+		<div class="row">
 			<div class="logo">
  				<img src="logo.png">
 			</div>

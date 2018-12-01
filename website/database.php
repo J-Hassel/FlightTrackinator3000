@@ -19,6 +19,7 @@ require_once "config.php";
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
     <title>Database</title>
     <link rel="stylesheet" type="text/css" href="style.css">
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -126,7 +127,7 @@ function build_table($result, $link, $table_name)
       $line = $line . "<input name = \"Submit\" type = \"submit\" id = \"searchsubmit\" value = \"Submit\"></form></tr>";
       $header = $header . "</tr>";
       echo $header;
-      echo $line;
+      echo utf8_encode($line);
        // output data of each row
        while($row = $result->fetch_assoc()) {
           $line = "<tr>";
