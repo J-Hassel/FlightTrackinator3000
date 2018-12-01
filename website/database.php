@@ -22,7 +22,6 @@ require_once "config.php";
     <meta name="google" content="notranslate">
     <title>Database</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   </meta>
    
    <style>
       table#t01 tr:nth-child(even) {
@@ -80,23 +79,29 @@ function build_table($result, $link, $table_name)
       {
         case 'airline':
           $heading = "Airlines Database";
+          $temp = "Airlines";
           break;
 
         case 'airplane':
           $heading = "Airplanes Database";
+          $temp = "Airplanes";
           break;
 
         case 'flight':
           $heading = "Flights Database";
+          $temp = "Flights";
           break;
 
         case 'airport':
           $heading = "Airports Database";
+          $temp  = "Airports";
           break;
 
 
       }
       echo "<center><h1 style=\"padding: 20px;\">" . $heading . "</h1>";
+      echo "Showing $result->num_rows $temp";
+
       $page = "#";
       $var = "";
       $headVal = "";
