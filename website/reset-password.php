@@ -78,20 +78,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; background-color: rgba(0,0,0,0);}
-        header{ width: 100%; height: 80px; background-color: rgba(0,0,0,0.5); }
-        .wrapper{ width: 350px; padding: 20px; margin: 0 auto; margin-top: 200px; background-color: rgba(255,255,255,0.7); border-radius: 10px; }
+        .wrapper{ width: 350px; padding: 20px; margin: 0 auto; margin-top: 200px; background-color: rgba(255,255,255,0.6); border-radius: 10px; border: 1px solid rgba(0,0,0,.3);}
         .reset-pass{ background-image: url(bg-home.jpg); background-repeat: no-repeat; background-size: cover; }
-        .logo img{ width: 300px; height: auto; float: left; margin-top: 10px; margin-left: 100px;}
     </style>
 </head>
 <body>
-<header>
-    <div class "row">
-        <div class="logo">
-            <img src="logo.png">
-        </div>
-    </div>
-</header>
+    <?php include_once("header.php"); ?>
+
     <div class="wrapper">
         <h2>Reset Password</h2>
         <p>Please fill out this form to reset your password.</p>

@@ -103,7 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <style type="text/css">
         body{ font: 14px sans-serif; background-color: rgba(0,0,0,0);}
         header{ width: 100%; height: 80px; background-color: rgba(0,0,0,0.5); }
-        .wrapper{ width: 350px; padding: 20px; margin: 0 auto; margin-top: 200px; background-color: rgba(255,255,255,0.7); border-radius: 10px; }
+        .wrapper{ width: 350px; padding: 20px; margin: 0 auto; margin-top: 200px; background-color: rgba(255,255,255,0.6); border-radius: 10px; border: 1px solid rgba(0,0,0,.3);}
         .register{ background-image: url(bg-home.jpg); background-repeat: no-repeat; background-size: cover; }
         .logo img{ width: 300px; height: auto; float: left; margin-top: 10px; margin-left: 100px;}
     </style>

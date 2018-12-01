@@ -14,7 +14,6 @@ require_once "config.php";
 <html>
   <head>
     <title>Airport</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
       /* Set the size of the div element that contains the map */
       #map {

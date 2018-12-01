@@ -3,9 +3,10 @@ $page = basename($_SERVER['PHP_SELF']);
 ?>
 
 <header>
+      <link rel="stylesheet" href="style.css" type="text/css" /> 
       <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
       <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>    
-      <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" /> 
+      <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
       <script>
           function update() {
                 $.ajax({
