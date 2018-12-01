@@ -65,7 +65,7 @@ require_once "config.php";
         $result = $link->query($sql);
         $row = $result->fetch_assoc();
         $airport = $row[mysqli_field_name($result, 0)];
-        echo "<center><h1 style=\"padding: 20px;\">$airport</h1>";
+        echo "<center><h1 style=\"padding: 20px;\">" . utf8_encode($airport). "</h1>";
         ?>
       </div>
 
@@ -94,7 +94,7 @@ if ($result->num_rows > 0) {
       echo utf8_encode($line)."</tr>";
    }
    echo "</table>";
-   include_once("review.php");
+   include("review.php");
    printReview("airport", $iataCode);
    echo "<div class='container'><div class='floatLeft'><h1 style='padding: 10px; font-size: 18pt;'> Flights From $airport</h1>";
    $from = $link->query("SELECT * FROM flight WHERE source = '$iataCode'");
