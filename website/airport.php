@@ -94,9 +94,9 @@ if ($result->num_rows > 0) {
       echo utf8_encode($line)."</tr>";
    }
    echo "</table>";
-   include("review.php");
+   include_once("review.php");
    printReview("airport", $iataCode);
-   echo "<div class='container'><div class='floatLeft'><h1 style='padding: 10px; font-size: 18pt;'> Flights From $airport</h1>";
+   echo "<div class='container'><div class='floatLeft'><h1 style='padding: 10px; font-size: 18pt;'> Flights From " . utf8_encode($airport). "</h1>";
    $from = $link->query("SELECT * FROM flight WHERE source = '$iataCode'");
    $locs = array();
    if ($from->num_rows > 0) {
@@ -128,7 +128,7 @@ if ($result->num_rows > 0) {
    }else{
        echo "<p style=\"padding-left: 20px;\">No flights have currently departed from this airport</p>";
    }
-   echo "</div><div class='floatRight'><h1 style='padding: 10px; font-size: 18pt;'> Flights To $airport</h1>";
+   echo "</div><div class='floatRight'><h1 style='padding: 10px; font-size: 18pt;'> Flights To " . utf8_encode($airport). "</h1>";
    $to = $link->query("SELECT * FROM flight WHERE destination = '$iataCode'");
    if ($to->num_rows > 0) {
           $count = mysqli_field_count($link);
