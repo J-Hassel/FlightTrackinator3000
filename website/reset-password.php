@@ -80,7 +80,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         body{ font: 14px sans-serif; background-color: rgba(0,0,0,0);}
         .wrapper{ width: 350px; padding: 20px; margin: 0 auto; margin-top: 200px; background-color: rgba(255,255,255,0.6); border-radius: 10px; border: 1px solid rgba(0,0,0,.3);}
         .reset-pass{ background-image: url(bg-home.jpg); background-repeat: no-repeat; background-size: cover; }
-        .btn-link{margin-top: 20px;}
     </style>
 </head>
 <body>
