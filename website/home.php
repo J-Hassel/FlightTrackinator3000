@@ -50,7 +50,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 	<div class="tracker-box">
 		<div class="ftrack-headline">
-			<h1>Flight Tracker
+			<h1>Track a Flight
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span>✈</span></h1>
