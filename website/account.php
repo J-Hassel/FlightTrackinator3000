@@ -21,8 +21,7 @@ if (mysqli_connect_errno()) {
 // Include config file
 require_once "config.php";
 
-
-function printAccountReview($username) {
+function printReview($username) {
     global $conn;
  
     $sql = "SELECT *
@@ -53,20 +52,28 @@ function printAccountReview($username) {
             * {
                 box-sizing: border-box;
             }
-            .column1 {
+            .controls {
+                text-align: center;
+                font-family: 'Verdana', sans-serif;
+                font-size: 14pt;
                 float: left;
-                width: 40%;
-                padding: 10px;
-                background-color: #BED2D9;
+                width: 70%;
+                background-color: #B7D8DE;
+                height: 100%;
             }
-
-            .column2 {
+            .reviews {
+                text-align: left;
+                float: inherit;
+                padding: 20px;
+                background-color: #B7D8DE;
+                height: 100%;
+            }
+            .edge {
                 float: left;
-                width: 60%;
-                padding: 10px;
-                background-color: #98B5BE;
+                background-color: #83B0B9;
+                width: 15%;
+                height: 100%;
             }
-
             .row {
                 content: "";
                 display: table;
@@ -77,24 +84,24 @@ function printAccountReview($username) {
     </head>
     <body>
         <div class="row">
-            <div class="column1">
-                <center><h1>Control Panel</h1></center>
-                <hr>
-                This is some text
+            <div class="edge"></div>
+            <div class="controls">
                 <br>
-                maybe
-                <br>
-                we could
-                <br>
-                include
-                <br>
-                a delete account link?
+                <h1>Control Panel</h1>
+                <br><hr><br><br>
+                <a href='reset-password.php'>Reset Password</a>
+                <br><br><br>
+                <a href="logout.php">Sign Out</a>
+                <br><br><br>
+                Delete Account
+                <br><br><br><hr>
+                <div class="reviews">
+                    <center><h1><?php echo "Reviews by " . $_SESSION['username'];?></h1></center>
+                    <br><hr>
+                    <?php printReview($_SESSION['username']);?>
+                </div>
             </div>
-            <div class="column2">
-                <center><h1><?php echo "Reviews by " . $_SESSION['username'];?></h1></center>
-                <hr>
-                <h4><?php printAccountReview($_SESSION['username']);?></h4>
-            </div>
+            <div class="edge"></div>
         </div>
     </body>
 </html>
