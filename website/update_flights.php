@@ -5,7 +5,7 @@
    $ch = curl_init();
    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-   curl_setopt($ch, CURLOPT_URL, 'http://aviation-edge.com/v2/public/flights?key=a1cfea-a5248d');
+   curl_setopt($ch, CURLOPT_URL, 'http://aviation-edge.com/v2/public/flights?key=5e4749-a71f56');
    $result = curl_exec($ch);
    curl_close($ch);
 

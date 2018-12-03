@@ -27,7 +27,7 @@ function printStats($table) {
     
     switch($table) {
         case "airline":
-            $sql = $conn->query("SELECT COUNT(DISTINCT name) FROM airline");
+            $sql = $conn->query("SELECT COUNT(name) FROM airline");
             $row = $sql->fetch_row();
             echo "There are currently <b>" . $row[0] . "</b> airlines in operation";
             $sql = $conn->query("SELECT COUNT(DISTINCT country) FROM airline");
@@ -48,32 +48,32 @@ function printStats($table) {
             echo "<b>" . $row["country"] . "</b>.";
             break;
         case "flight":
-            $sql = $conn->query("SELECT COUNT(DISTINCT aircraft_id) FROM flight");
+            $sql = $conn->query("SELECT COUNT(aircraft_id) FROM flight");
             $row = $sql->fetch_row();
             echo "There are currently <b>" . $row[0] . "</b> flights en-route right now.<br>";
 
             $sql = $conn->query("SELECT AVG(speed) FROM flight");
             $row = $sql->fetch_row();
-            echo "The average speed of all the flights is <b>" . $row[0] . "mph</b>.<br>";
+            echo "The average speed of all the flights is <b>" . round(floatval($row[0]), 1) . " mph</b>.<br>";
 
-            $sql = $conn->query("SELECT MIN(speed) FROM flight");
+            $sql = $conn->query("SELECT MIN(speed) FROM flight WHERE speed > 0");
             $row = $sql->fetch_row();
             echo "The slowest plane is currently crawling across the globe at a whopping <b>"
-                . $row[0] . "mph</b>, ";
+                . $row[0] . " mph</b>, ";
             $sql = $conn->query("SELECT MAX(speed) FROM flight");
             $row = $sql->fetch_row();
-            echo "while the fastest plane has reached <b>" . $row[0] . "mph</b>.<br>";
+            echo "while the fastest plane has reached <b>" . round(floatval($row[0]), 1) . " mph</b>.<br>";
 
-            $sql = $conn->query("SELECT AVG(altitude) FROM flight");
+            $sql = $conn->query("SELECT AVG(altitude) FROM flight WHERE altitude >= 0");
             $row = $sql->fetch_row();
-            echo "The average altitude is: <b>" . $row[0] . "ft</b>.<br>";
+            echo "The average altitude is: <b>" . round(floatval($row[0]), 1) . " ft</b>.<br>";
 
-            $sql = $conn->query("SELECT MIN(altitude) FROM flight");
+            $sql = $conn->query("SELECT MIN(altitude) FROM flight WHERE altitude >= 0");
             $row = $sql->fetch_row();
-            echo "The lowest plane right now is at an altitude of <b>" . $row[0] . "ft</b>. ";
+            echo "The lowest plane right now is at an altitude of <b>" . $row[0] . " ft</b>, ";
             $sql = $conn->query("SELECT MAX(altitude) FROM flight");
             $row = $sql->fetch_row();
-            echo "and the highest altitude reached is <b>" . $row[0] . "ft</b>.<br>";
+            echo "and the highest altitude reached is <b>" . $row[0] . " ft</b>.<br>";
             echo "<b>Note:</b> True altitude is used (elevation above the average sea level).";
             break;
         case "user":
