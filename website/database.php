@@ -60,6 +60,7 @@ require_once "config.php";
    
 
   <select name="table_name" class="db-selector">
+    <option value="flight" selected hidden>Select Database</option>
     <option value="flight">Flights</option>
     <option value="airline">Airlines</option>
     <option value="airport">Airports</option>
