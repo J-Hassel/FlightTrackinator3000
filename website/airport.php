@@ -34,6 +34,7 @@ require_once "config.php";
           background-color: #337ab7;
           color: white;
           width: 0.5%;
+          font-size: 9pt;
       }
       .floatLeft { width: 49%; float: left; margin-left: 10px; }
       .floatRight {width: 49%; float: right; margin-right: 10px;}
@@ -100,7 +101,7 @@ if ($result->num_rows > 0) {
    include_once("review.php");
    printReview("airport", $iataCode);
    $from = $link->query("SELECT * FROM flight WHERE source = '$iataCode'");
-   echo "<div class='container'><div class='floatLeft'><h1 style='padding: 5px; margin-top: 10px; font-size: 18pt;'> Flights From " . utf8_encode($airport) . " ($from->num_rows flights)</h1>";
+   echo "<div class='container'><div class='floatLeft'><h1 style='padding: 5px; margin-top: 10px; font-size: 16pt;'> Flights From " . utf8_encode($airport) . " ($from->num_rows flights)</h1>";
    $locs = array();
    if ($from->num_rows > 0) {
           $count = mysqli_field_count($link);
@@ -132,7 +133,7 @@ if ($result->num_rows > 0) {
        echo "<p style=\"padding-left: 20px;\">No flights have currently departed from this airport</p>";
    }
    $to = $link->query("SELECT * FROM flight WHERE destination = '$iataCode'");
-   echo "</div><div class='floatRight'><h1 style='padding: 5px; margin-top: 10px; font-size: 18pt;'> Flights To " . utf8_encode($airport). " ($to->num_rows flights)</h1>";
+   echo "</div><div class='floatRight'><h1 style='padding: 5px; margin-top: 10px; font-size: 16pt;'> Flights To " . utf8_encode($airport). " ($to->num_rows flights)</h1>";
    if ($to->num_rows > 0) {
           $count = mysqli_field_count($link);
           $header = "<table id='t01'><tr>";
