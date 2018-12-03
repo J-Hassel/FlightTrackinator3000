@@ -59,7 +59,7 @@ require_once "config.php";
 
    
 
-  <select name="table_name" class="db-selector">
+  <select name="table_name" class="db-selector" onchange="this.form.submit()">
     <option value="flight" selected hidden>Select Database</option>
     <option value="flight">Flights</option>
     <option value="airline">Airlines</option>
@@ -67,8 +67,8 @@ require_once "config.php";
     <option value="airplane">Airplanes</option>
   </select>
 
-  <input name = "Submit" type = "submit" id = "Submit" value="GO!" class="db-button">
-
+<!--   <input name = "Submit" type = "submit" id = "Submit" value="GO!" class="db-button">
+ -->
 </form>
 </center>
 <?php
