@@ -24,6 +24,8 @@ $page = basename($_SERVER['PHP_SELF']);
          <style>
          .main-nav{
             width: 50%;
+            margin-left: auto;
+            margin-right: auto;
          }
          </style>
 			<ul class="main-nav">
@@ -31,9 +33,9 @@ $page = basename($_SERVER['PHP_SELF']);
 				<li class="<?php if($page == 'home.php'){ echo ' active"';}?>"><a href="home.php">Home</a></li>
 				<li class="<?php if($page == 'allflights.php'){ echo ' active"';}?>"><a href="allflights.php">Map</a></li>
 				<li class="<?php if($page == 'database.php'){ echo ' active"';}?>"><a href="database.php?table_name=flight&Submit=Submit">Database</a></li>
-				<li class="<?php if($page == 'logout.php'){ echo ' active"';}?>"><a href="logout.php">Sign Out</a></li>
-				<li class="<?php if($page == 'reset-password.php'){ echo ' active"';}?>"><a href="reset-password.php">Reset Password</a></li>
-            <li class="<?php if($page == 'my_reviews.php'){ echo ' active"';}?>"><a href="account.php">Signed in as: <?php echo $_SESSION['username']; ?></a></li>
-			</ul>
+				<li class="<?php if($page == 'dbstats.php'){ echo ' active"';}?>"><a href="dbstats.php">Statistics</a></li>
+            <li class="<?php if($page == 'account.php'){ echo ' active"';}?>"><a href="account.php">Signed in as: <?php echo $_SESSION['username']; ?></a></li>
+            </object>
+         </ul>
 		</div>
 </header>
