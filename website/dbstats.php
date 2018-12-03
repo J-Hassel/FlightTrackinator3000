@@ -103,41 +103,44 @@ function printStats($table) {
 
 ?>
 
-<html>
+<html class = "db-stats">
     <head>
         <?php include_once("header.php"); ?>
         <style>
             * {
                 box-sizing: border-box;
             }
-            .the-meat {
-                float: left;
-                font-family: 'Verdana', sans-serif;
+            .stats-box {
+                font-family: 'Roboto', sans-serif;
                 font-size: 14pt;
-                background-color: #B7D8DE;
                 padding: 20px;
                 width: 70%;
-                height: 100%;
+                height: 60%;
             }
-            .the-greens {
-                float: left;
-                background-color: #83B0B9;
-                width: 15%;
-                height: 100%;
+
+            .db-stats
+            {
+                background-image: url(bg-home.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
             }
-            .row {
-                content: "";
-                display: table;
-                clear: both;
-                height: 100%;
+
+            .stats-box
+            {
+                border: 1px solid rgba(0,0,0,.5);
+                width: 70%;
+                height: 57%;
+                background-color: rgba(255,255,255,.8);
+                margin: 0 auto;
+                margin-top: 100px;
+                padding: 50px;
+                border-radius: 15px;
             }
+            
         </style>
     </head>
     <body>
-        <div class="row">
-            <div class="the-greens"></div>
-            <div class="the-meat">
-                <center><h1>Database Statistics</h1></center><br><hr><br>
+            <div class="stats-box">
                 <h2>Airlines:</h2>
                     <?php printStats("airline"); ?>
                     <br><br>
@@ -150,7 +153,5 @@ function printStats($table) {
                 <h2>Users:</h2>
                     <?php printStats("user"); ?>
             </div>
-            <div class="the-greens"></div>
-        </div>
     </body>
 </html>
