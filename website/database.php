@@ -24,8 +24,12 @@ require_once "config.php";
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    
    <style>
+      table#t01 {
+        padding: 10px;
+      }
       table#t01 tr:nth-child(even) {
           background-color: #fff;
+          border: 1px solid black;
       }
       table#t01 tr:nth-child(odd) {
          background-color: #eee;
