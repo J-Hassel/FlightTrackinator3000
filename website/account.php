@@ -62,14 +62,13 @@ function printReview($username) {
             .controls 
             {
                 border: 1px solid rgba(0,0,0,.3);
-                width: 1500px;
-                height: 210px;
-                margin: 0 auto;
+                width: 200px;
+                height: 230px;
                 margin-top: 50px;
                 padding: 20px;
                 border-radius: 15px;
-
-                text-align: center;
+                margin-left: 200px;
+                text-align: left;
                 font-family: 'Roboto', sans-serif;
                 font-size: 14pt;
             }
@@ -108,7 +107,7 @@ function printReview($username) {
     </head>
     <body>
             <div class="controls">
-                <h1>Control Panel</h1><br>
+                <h1>Account</h1><br>
                 <a class="btn" href='reset-password.php'>Reset Password</a><br><br>
                 <a class="btn" href="logout.php">Sign Out</a>
                 <br><br>
