@@ -107,17 +107,6 @@ function printStats($table) {
     <head>
         <?php include_once("header.php"); ?>
         <style>
-            * {
-                box-sizing: border-box;
-            }
-            .stats-box {
-                font-family: 'Roboto', sans-serif;
-                font-size: 14pt;
-                padding: 20px;
-                width: 70%;
-                height: 60%;
-            }
-
             .db-stats
             {
                 background-image: url(bg-home.jpg);
@@ -127,9 +116,12 @@ function printStats($table) {
 
             .stats-box
             {
+                box-sizing: border-box;
+                font-family: 'Roboto', sans-serif;
+                font-size: 14pt;
                 border: 1px solid rgba(0,0,0,.5);
-                width: 70%;
-                height: 57%;
+                width: 1200px;
+                height: 550px;
                 background-color: rgba(255,255,255,.8);
                 margin: 0 auto;
                 margin-top: 100px;

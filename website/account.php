@@ -24,19 +24,18 @@ require_once "config.php";
 function printReview($username) {
     global $conn;
  
-    $sql = "SELECT *
-       FROM	review
-       WHERE	username = '$username'";
+    $sql = "SELECT * FROM review, airport WHERE username = '$username' AND refID = iataCode";
     $result = $conn->query($sql);
  
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp" . $row["refID"]; // POSSIBLE TODO: make this a link???
-            // echo "<div style='background-color: #eee; margin-top: 10px;' id='review". $row['hashID'] ."'>";
+            // echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp" . $row['name'] . " - " . $row['city'] . ", " . $row['country'];
+            echo "<br>" . $row['name']; // POSSIBLE TODO: make this a link???
+            echo "<div style='background-color: #eee; margin-top: 10px;' id='review". $row['hashID'] ."'>";
 			echo "<br>&nbsp&nbsp&nbsp&nbsp&nbspRating: " . $row["rating"] . "/5";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . explode('-', $row["time"])[1] . "/" . explode(' ', explode('-', $row["time"])[2])[0] . "/" . explode('-', $row["time"])[0] . "<br>";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbspComment: " . $row["comment"] . "<br><br>";
-            // echo "</div>";
+            echo "</div>";
        }
     } else {
        echo "No Reviews";
@@ -45,63 +44,80 @@ function printReview($username) {
 
 ?>
 
-<html>
+<html class="account">
     <head>
         <?php include_once("header.php"); ?>
         <style>
             * {
                 box-sizing: border-box;
             }
-            .controls {
-                text-align: center;
-                font-family: 'Verdana', sans-serif;
-                font-size: 14pt;
-                float: left;
-                width: 70%;
-                background-color: #B7D8DE;
-                height: 100%;
+
+            .account
+            {
+/*                background-image: url(bg-home.jpg);
+                background-repeat: repeat-y;
+                background-size: cover;*/
             }
-            .reviews {
-                text-align: left;
-                float: inherit;
+
+            .controls 
+            {
+                border: 1px solid rgba(0,0,0,.3);
+                width: 1500px;
+                height: 210px;
+                margin: 0 auto;
+                margin-top: 50px;
                 padding: 20px;
-                background-color: #B7D8DE;
-                height: 100%;
+                border-radius: 15px;
+
+                text-align: center;
+                font-family: 'Roboto', sans-serif;
+                font-size: 14pt;
             }
-            .edge {
-                float: left;
-                background-color: #83B0B9;
-                width: 15%;
-                height: 100%;
+
+            .reviews 
+            {
+                border: 1px solid rgba(0,0,0,.3);
+                margin: 0 auto;
+                margin-top: 50px;
+                padding: 20px;
+                border-radius: 15px;
+                width: 1500px;
+                text-align: left;
+                padding: 20px;
             }
-            .row {
-                content: "";
-                display: table;
-                clear: both;
-                height: 100%;
+
+            .btn
+            {
+                color: white;
+                text-decoration: none;
+                padding: 7px;
+                width: 200px;
+                border-radius: 5px;
+                background-color: #337ab7;
+                opacity: .9;
+                cursor: pointer;
+                border:none;
             }
+
+            .btn:hover
+            {
+                opacity: 1;
+            }
+            
         </style>
     </head>
     <body>
-        <div class="row">
-            <div class="edge"></div>
             <div class="controls">
-                <br>
-                <h1>Control Panel</h1>
-                <br><hr><br><br>
-                <a href='reset-password.php'>Reset Password</a>
-                <br><br><br>
-                <a href="logout.php">Sign Out</a>
-                <br><br><br>
-                Delete Account
-                <br><br><br><hr>
-                <div class="reviews">
-                    <center><h1><?php echo "Reviews by " . $_SESSION['username'];?></h1></center>
-                    <br><hr>
-                    <?php printReview($_SESSION['username']);?>
-                </div>
+                <h1>Control Panel</h1><br>
+                <a class="btn" href='reset-password.php'>Reset Password</a><br><br>
+                <a class="btn" href="logout.php">Sign Out</a>
+                <br><br>
+                <a class="btn" href="delete.php">Delete Account</a><br><br><br><br>
             </div>
-            <div class="edge"></div>
-        </div>
+            <div class="reviews">
+                    <center><h1>Your Reviews</h1></center>
+                    <br>
+                    <?php printReview($_SESSION['username']);?>
+            </div>
     </body>
 </html>
