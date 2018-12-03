@@ -31,9 +31,11 @@ require_once "config.php";
          background-color: #eee;
       }
       table#t01 th {
-          background-color: black;
+          padding: 10px;
+          background-color: #337ab7;
           color: white;
       }
+
       input {
           width: 100%;
           padding: 10px;
@@ -99,7 +101,7 @@ function build_table($result, $link, $table_name)
 
 
       }
-      echo "<center><h1 style=\"padding: 20px;\">" . $heading . "</h1>";
+      echo "<center><h1 style='padding: 20px;'>" . $heading . "</h1>";
       echo "Showing $result->num_rows $temp";
 
       $page = "#";
@@ -116,7 +118,7 @@ function build_table($result, $link, $table_name)
       }
       $count = mysqli_field_count($link);
       $header = "<table id='t01'><tr>";
-      $line = "<tr><form><input type=\"hidden\" name = \"table_name\" value = \"$table_name\">";
+      $line = "<tr><form autocomplete='off'><input type='hidden' name = 'table_name' value = '$table_name'>";
       for($x = 0; $x < $count; $x++){
          $field_name = mysqli_field_name($result, $x);
          $header = $header . "<th>$field_name</th>";
@@ -124,12 +126,12 @@ function build_table($result, $link, $table_name)
             $line = $line . "</td>";
          }
          if(isset($_GET[$field_name])){
-            $line = $line . "<td><input name=\"$field_name\" type=\"text\" id=\"$field_name\" value='$_GET[$field_name]'>";
+            $line = $line . "<td><input name='$field_name' type='text' id='$field_name' value='$_GET[$field_name]'>";
          }else{
-            $line = $line . "<td><input name=\"$field_name\" type=\"text\" id=\"$field_name\">";
+            $line = $line . "<td><input name='$field_name' type='text' id='$field_name'>";
          }
       }
-      $line = $line . "<input name = \"Submit\" type = \"submit\" id = \"searchsubmit\" value = \"Submit\"></form></tr>";
+      $line = $line . "<input name = 'Submit' type = 'submit' id = 'searchsubmit' value = 'Submit'></form></tr>";
       $header = $header . "</tr>";
       echo $header;
       echo utf8_encode($line);
@@ -139,10 +141,10 @@ function build_table($result, $link, $table_name)
          for($x = 0; $x < $count; $x++){
             if(mysqli_field_name($result, $x) == $headVal){
                $aircraftID = $row[mysqli_field_name($result, $x)];
-               $line = $line . "<td><a href=\"$page?$var=$aircraftID\">" . $row[mysqli_field_name($result, $x)] . "</a></td>";
+               $line = $line . "<td><a href='$page?$var=$aircraftID'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
             }else if($table_name == "flight" and (mysqli_field_name($result, $x) == "source" OR mysqli_field_name($result, $x) == "destination")){
                $iataCode = $row[mysqli_field_name($result, $x)];
-               $line = $line . "<td><a href=\"airport.php?iataCode=$iataCode\">" . $row[mysqli_field_name($result, $x)] . "</a></td>";
+               $line = $line . "<td><a href='airport.php?iataCode=$iataCode'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
             }else{
                $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
             }

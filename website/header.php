@@ -17,7 +17,9 @@ $page = basename($_SERVER['PHP_SELF']);
       </script>
 		<div class="row">
 			<div class="logo">
+				<a href="home.php">
  				<img src="logo.png">
+ 				</a>
 			</div>
 		
 			<ul class="main-nav">

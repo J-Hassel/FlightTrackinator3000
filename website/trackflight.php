@@ -34,7 +34,8 @@ require_once "config.php";
        background-color: #fff;
     }
     table#t01 th {
-        background-color: black;
+        padding: 10px;
+        background-color: #337ab7;
         color: white;
         width: 0.5%;
     }
@@ -69,17 +70,20 @@ $aircraft_id = $_GET['aircraft_id'];
 $flightRow = $link->query("SELECT name FROM flight, airline WHERE aircraft_id = '$aircraft_id' AND airline = iataCode")->fetch_assoc();
 $airline = $flightRow['name'];
 
-$flightRow = $link->query("SELECT flight_num, city FROM flight, airport WHERE aircraft_id = '$aircraft_id' AND source = iataCode")->fetch_assoc();
+$flightRow = $link->query("SELECT flight_num, city, country FROM flight, airport WHERE aircraft_id = '$aircraft_id' AND source = iataCode")->fetch_assoc();
 $flight_num = $flightRow['flight_num'];
 $srcCity = $flightRow['city'];
+$srcCountry = $flightRow['country'];
 
-$flightRow = $link->query("SELECT city FROM flight, airport WHERE aircraft_id = '$aircraft_id' AND destination = iataCode")->fetch_assoc();
+
+$flightRow = $link->query("SELECT city, country FROM flight, airport WHERE aircraft_id = '$aircraft_id' AND destination = iataCode")->fetch_assoc();
 $dstCity = $flightRow['city'];
+$dstCountry = $flightRow['country'];
 
 $sql = "SELECT * FROM flight WHERE aircraft_id = '$aircraft_id'";
 $result = $link->query($sql);
 if ($result->num_rows > 0) {
-  echo "<center><h1 style=\"padding: 20px;\">" . utf8_encode($airline) . " - Flight " . utf8_encode($flight_num) . "  &nbsp :: &nbsp " . utf8_encode($srcCity) . " &nbsp ✈ &nbsp " . utf8_encode($dstCity) . "</h1>";
+  echo "<center><h1 style=\"padding: 20px;\">" . utf8_encode($airline) . " - Flight " .  utf8_encode($flight_num) . "  &nbsp :: &nbsp " . utf8_encode($srcCity) . ", " . utf8_encode($srcCountry) . " &nbsp ✈ &nbsp " . utf8_encode($dstCity) . ", " . utf8_encode($dstCountry) . "</h1>";
   $count = mysqli_field_count($link);
   $header = "<table id='t01'><tr>";
   for($x = 0; $x < $count; $x++){

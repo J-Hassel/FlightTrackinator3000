@@ -30,8 +30,8 @@ body
 
 input
 {
-	margin-top: 20px;
-}
+/*	margin-top: 20px;
+*/}
 
 .main-nav
 {
@@ -107,11 +107,19 @@ input
 
 .ft-button
 {
-	padding: 4px;
+	margin-top: 17px;
+	padding: 10px;
 	width: 100%;
 	border-radius: 5px;
   	background-color: #337ab7;
-  	border-color: #2e6da4;
+  	opacity: .9;
+  	cursor: pointer;
+  	border:none;
+ }
+
+ .ft-button:hover
+{
+	opacity: 1;
  }
 
 input.ft-button[type=submit]
