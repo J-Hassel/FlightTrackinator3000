@@ -18,25 +18,16 @@ require_once "config.php";
 $current_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 
-function updateReview($type, $id, $username, $url) {
+function updateReview($hashID, $rating, $comment) {
 	global $conn;
 
 	$date = date('Y-m-d H:i:s');
 
 	/* Attempt to update review */
-	$sql = "UPDATE
-			SET		rating = '', time = '$date', comment = ''
-			WHERE	type = '$type'
-			AND		refID = '$id'
-			AND		username = '$username'";
+	$sql = "UPDATE review SET rating = '$rating', comment = '$comment' WHERE review.hashID = '$hashID'";
 
 	/* Create pop-up notifying the user of result */
-	if ($conn->query($sql) === TRUE) {
-		echo 	"<script type='text/javascript'>
-				alert('Review successfully updated!');
-				window.location.href = '$url';" 	// redirects user to original page
-				. "</script>";
-	} else {
+	if ($conn->query($sql) === FALSE) {
 		echo 	"<script type='text/javascript'>
 				alert('Error updating review!');
 				</script>";
@@ -105,25 +96,28 @@ function printReview($type, $id) {
 			/* User commands if they have previously left a review */
 			if($row["username"] == $_SESSION['username']) {
 				$review_exists = true;
+        $updateDiv = "";
+
 
 				/* Update Review Option */
 				echo 	"<font size ="."2".">
-						<a style='color: white; border-radius: 3px; background-color: #337ab7; opacity: .8; margin: 5px; cursor: pointer;' onclick='openUpdate(\"". $row['hashID'] ."\");'>&nbsp update &nbsp"."</a>
+						<a style='color: white; border-radius: 3px; background-color: #337ab7; opacity: .8; margin: 5px; cursor: pointer;' onclick='openUpdate(\"". $row['hashID'] ."\"); change(". $row["rating"] .", \"". $row['hashID'] . "rating\");'>&nbsp update &nbsp</a>
 						</font>";
-               echo '<div class="form-popup" id="'.$row['hashID'].'">
+            $hashID = $row['hashID'];
+            $updateDiv = '<div class="form-popup" id="'.$row['hashID'].'">
                      <form class="form-container">
                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                           <div class="rating">
-                               <span><input type="radio" name="rating" id="str5" value="5"><label for="str5" class="fa fa-star"></label></span>
-                               <span><input type="radio" name="rating" id="str4" value="4"><label for="str4" class="fa fa-star"></label></span>
-                               <span><input type="radio" name="rating" id="str3" value="3"><label for="str3" class="fa fa-star"></label></span>
-                               <span><input type="radio" name="rating" id="str2" value="2"><label for="str2" class="fa fa-star"></label></span>
-                               <span><input type="radio" name="rating" id="str1" value="1"><label for="str1" class="fa fa-star"></label></span>
+                           <div class="rating" id="'. $hashID .'rating">
+                               <span onclick="change(5, \''. $hashID .'rating\');"><input type="radio" name="rating" value="5"><label for="str5" class="fa fa-star"></label></span>
+                               <span onclick="change(4, \''. $hashID .'rating\');"><input type="radio" name="rating" r4" value="4"><label for="str4" class="fa fa-star"></label></span>
+                               <span onclick="change(3, \''. $hashID .'rating\');"><input type="radio" name="rating" value="3"><label for="str3" class="fa fa-star"></label></span>
+                               <span onclick="change(2, \''. $hashID .'rating\');"><input type="radio" name="rating" value="2"><label for="str2" class="fa fa-star"></label></span>
+                               <span onclick="change(1, \''. $hashID .'rating\');"><input type="radio" name="rating" value="1"><label for="str1" class="fa fa-star"></label></span>
                            </div>
                         <label for="comment"><b>Rating</b></label>
                         <textarea id="comment" rows="4" cols="50" name="comment" form="'.$row['hashID'].'">'. $row["comment"] .'</textarea>
-                        <button type="button" onclick="updateReview()" class="btn">Submit Review</button>
-                        <button type="button" class="btn cancel" onclick="openUpdate(\'$row[\'hashID\']\')">Cancel</button>
+                        <button type="button" onclick="updateReview(\''. $hashID .'\')" class="btn">Submit Review</button>
+                        <button type="button" class="btn cancel" onclick="openUpdate(\''.$row['hashID'].'\')">Cancel</button>
                      </form>
                   </div>';
 
@@ -134,6 +128,7 @@ function printReview($type, $id) {
 			}
 			echo "<br>";
    
+         echo $updateDiv;
          echo "<div style='background-color: #eee; margin-top: 10px;' id='review". $row['hashID'] ."'>";
 			echo "<br>&nbsp&nbsp&nbsp&nbsp&nbspRating: " . $row["rating"] . "/5";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . explode('-', $row["time"])[1] . "/" . explode(' ', explode('-', $row["time"])[2])[0] . "/" . explode('-', $row["time"])[0] . "<br>";
@@ -146,6 +141,13 @@ function printReview($type, $id) {
 }
 if(isset($_POST['deleteReview'])) {
 	deleteReview($_POST['hashID']);
+}
+
+if(isset($_POST['updateReview'])){
+   $hashID = $_POST['hashID'];
+   $rating = $_POST['rating'];
+   $comment = $_POST['comment'];
+   updateReview($hashID, $rating, $comment);
 }
 
 if(isset($_POST['createReview'])){
@@ -302,12 +304,12 @@ textarea
   <form class="form-container">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-      <div class="rating">
-    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5" class="fa fa-star"></label></span>
-    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4" class="fa fa-star"></label></span>
-    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3" class="fa fa-star"></label></span>
-    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2" class="fa fa-star"></label></span>
-    <span><input type="radio" name="rating" id="str1" value="1"><label for="str1" class="fa fa-star"></label></span>
+      <div class="rating" id='create'>
+    <span onclick="change(5, 'create');"><input type="radio" name="rating" id="5" value="5"><label for="str5" class="fa fa-star"></label></span>
+    <span onclick="change(4, 'create');"><input type="radio" name="rating" id="4" value="4"><label for="str4" class="fa fa-star"></label></span>
+    <span onclick="change(3, 'create');"><input type="radio" name="rating" id="3" value="3"><label for="str3" class="fa fa-star"></label></span>
+    <span onclick="change(2, 'create');"><input type="radio" name="rating" id="2" value="2"><label for="str2" class="fa fa-star"></label></span>
+    <span onclick="change(1, 'create');"><input type="radio" name="rating" id="1" value="1"><label for="str1" class="fa fa-star"></label></span>
       </div>
 
     <label for="comment"><b>Rating</b></label>
@@ -319,22 +321,23 @@ textarea
 </div>
 
 <script>
-var userRating;
 
-$(document).ready(function(){
-    // Check Radio-box
-    $(".rating input:radio").attr("checked", false);
+var userRating = {};
+function change(rating, element){
+ var div = document.getElementById(element);
+ userRating[element] = rating;
+ var spans = div.getElementsByTagName('span');
+ for(var i = 0; i < spans.length; i++){
+    var span = spans[i];
+    var radio = span.getElementsByTagName('input')[0];
+    if(radio.getAttribute('value') <= rating){
+       span.classList.add('checked');
+    }else{
+       span.classList.remove('checked');
+    }
+ }
+}
 
-    $('.rating input').click(function () {
-        $(".rating span").removeClass('checked');
-        $(this).parent().addClass('checked');
-    });
-
-    $('input:radio').change(
-      function(){
-        userRating = this.value;
-    }); 
-});
 function openForm(id) {
    if(document.getElementById(id).style.display == "none"){
     document.getElementById(id).style.display = "block";
@@ -368,7 +371,7 @@ function createReview() {
    "<?php
    }
    ?>"
-   var rating = userRating;
+   var rating = userRating['create'];
    var comment = document.getElementById("comment").value;
    var dataString = "createReview=1&rating=" + rating + "&comment=" + comment + "&id=" + id + "&type=" + type;
     $.ajax({
@@ -379,7 +382,6 @@ function createReview() {
          window.location.reload();
       }
    });
-   closeForm();
 }
 
 function deleteReview(hashID){
@@ -389,6 +391,22 @@ function deleteReview(hashID){
       type: "POST",
       data: dataString,
       success: function() {
+         window.location.reload();
+      }
+   });
+}
+
+function updateReview(hashID){
+      var div = document.getElementById(hashID);
+      var rating = userRating[hashID + "rating"];
+      var comment = div.getElementsByTagName("textarea")[0].value;
+      console.log(comment);
+      var dataString = "updateReview=1&rating=" + rating + "&comment=" + comment + "&hashID=" + hashID;
+      $.ajax({
+      url:"review.php",
+      type: "POST",
+      data: dataString,
+      success: function(html) {
          window.location.reload();
       }
    });
