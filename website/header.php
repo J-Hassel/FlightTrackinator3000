@@ -21,7 +21,11 @@ $page = basename($_SERVER['PHP_SELF']);
  				<img src="logo.png">
  				</a>
 			</div>
-		
+         <style>
+         .main-nav{
+            width: 50%;
+         }
+         </style>
 			<ul class="main-nav">
             <li ><a href="#" onclick='update();'>Update</a></li>
 				<li class="<?php if($page == 'home.php'){ echo ' active"';}?>"><a href="home.php">Home</a></li>
