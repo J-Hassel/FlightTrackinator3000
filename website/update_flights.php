@@ -25,7 +25,9 @@
          $aircraft_icao = $obj->aircraft->icaoCode;
          $source = $obj->departure->iataCode;
          $destination = $obj->arrival->iataCode;
-         if($airline == "" or $aircraft_icao == "" or $source == "" or $destination == ""){
+
+         if($airline == "" or $aircraft_icao == "" or $source == "" or $destination == "" or $altitude > 45000 or $altitude < -200 or $speed > 700 or $speed < 0)
+         {
             continue;
          }
          if(preg_match("/[a-z]/i", $flight_num)){

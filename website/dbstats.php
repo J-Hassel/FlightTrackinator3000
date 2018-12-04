@@ -35,22 +35,34 @@ function printStats($table) {
             echo " from <b>" . $row[0] . "</b> different countries.";
             break;
         case "airport":
+
+			$sql = $conn->query(
+                "SELECT name, iataCode, city, country, destination, COUNT(*) AS count
+                FROM airport INNER JOIN flight
+                ON airport.iataCode = flight.source
+                GROUP BY source
+                ORDER BY COUNT(*) DESC LIMIT 1"
+            );
+            $row = $sql->fetch_assoc();
+            echo "The current most popular source is the <b>" . $row["name"] . " (" . $row['iataCode'] . ")</b>, located in <b>" . $row['city'] . ", " . $row['country'] . "</b><br>"; 
+            echo "There are currently <b>" . $row['count'] . "</b> flights in the air who started their journey at <b>" . $row['iataCode'] . "</b>.<br>";
+            
+
             $sql = $conn->query(
-                "SELECT name, iataCode, city, country, destination
+                "SELECT name, iataCode, city, country, destination, COUNT(*) AS count
                 FROM airport INNER JOIN flight
                 ON airport.iataCode = flight.destination
                 GROUP BY destination
                 ORDER BY COUNT(*) DESC LIMIT 1"
             );
             $row = $sql->fetch_assoc();
-            echo "The current most popular destination is the <b>" . $row["name"] . "</b><br>";
-            echo "Which is located in: <b>" . $row["city"] . "</b>, ";
-            echo "<b>" . $row["country"] . "</b>.";
+            echo "The current most popular destination is the <b>" . $row["name"] . " (" . $row['iataCode'] . ")</b>, located in <b>" . $row['city'] . ", " . $row['country'] . "</b><br>"; 
+            echo "There are currently <b>" . $row['count'] . "</b> flights in the air who will end their journey at <b>" . $row['iataCode'] . "</b>.";
             break;
         case "flight":
             $sql = $conn->query("SELECT COUNT(aircraft_id) FROM flight");
             $row = $sql->fetch_row();
-            echo "There are currently <b>" . $row[0] . "</b> flights en-route right now.<br>";
+            echo "There are currently <b>" . $row[0] . "</b> flights en-route(in the air or on the runway) right now.<br>";
 
             $sql = $conn->query("SELECT AVG(speed) FROM flight");
             $row = $sql->fetch_row();
@@ -59,19 +71,19 @@ function printStats($table) {
             $sql = $conn->query("SELECT MIN(speed) FROM flight WHERE speed > 0");
             $row = $sql->fetch_row();
             echo "The slowest plane is currently crawling across the globe at a whopping <b>"
-                . $row[0] . " mph</b>, ";
+                . $row[0] . " mph</b>(on the runway), ";
             $sql = $conn->query("SELECT MAX(speed) FROM flight");
             $row = $sql->fetch_row();
             echo "while the fastest plane has reached <b>" . round(floatval($row[0]), 1) . " mph</b>.<br>";
 
-            $sql = $conn->query("SELECT AVG(altitude) FROM flight WHERE altitude >= 0");
+            $sql = $conn->query("SELECT AVG(altitude) FROM flight");
             $row = $sql->fetch_row();
             echo "The average altitude is: <b>" . round(floatval($row[0]), 1) . " ft</b>.<br>";
 
-            $sql = $conn->query("SELECT MIN(altitude) FROM flight WHERE altitude >= 0");
+            $sql = $conn->query("SELECT MIN(altitude) FROM flight");
             $row = $sql->fetch_row();
-            echo "The lowest plane right now is at an altitude of <b>" . $row[0] . " ft</b>, ";
-            $sql = $conn->query("SELECT MAX(altitude) FROM flight");
+            echo "The lowest plane right now is at an altitude of <b>" . $row[0] . " ft</b>(on the runway), ";
+            $sql = $conn->query("SELECT MAX(altitude) FROM flight WHERE altitude");
             $row = $sql->fetch_row();
             echo "and the highest altitude reached is <b>" . $row[0] . " ft</b>.<br>";
             echo "<b>Note:</b> True altitude is used (elevation above the average sea level).";
@@ -120,8 +132,8 @@ function printStats($table) {
                 font-family: 'Roboto', sans-serif;
                 font-size: 14pt;
                 border: 1px solid rgba(0,0,0,.5);
-                width: 1200px;
-                height: 550px;
+                width: 1310px;
+                height: 570px;
                 background-color: rgba(255,255,255,.8);
                 margin: 0 auto;
                 margin-top: 100px;
