@@ -64,22 +64,21 @@ function printReview($username) {
     <head>
         <?php include_once("header.php"); ?>
         <style>
-            * {
-                box-sizing: border-box;
-            }
-
             .account
             {
-/*                background-image: url(bg-home.jpg);
-                background-repeat: repeat-y;
-                background-size: cover;*/
+                background-image: url(bg-home.jpg);
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
             }
 
             .controls 
             {
                 border: 1px solid rgba(0,0,0,.3);
-                width: 200px;
-                height: 230px;
+                width: 160px;
+                height: 190px;
+                background-color: rgba(255,255,255,.8);
                 margin-top: 50px;
                 padding: 20px;
                 border-radius: 15px;
@@ -94,9 +93,12 @@ function printReview($username) {
                 border: 1px solid rgba(0,0,0,.3);
                 margin: 0 auto;
                 margin-top: 50px;
+                margin-left: 200px;
+                margin-right: 200px;
+                margin-bottom: 50px;
                 padding: 20px;
                 border-radius: 15px;
-                width: 1500px;
+                background-color: rgba(255,255,255,.8);
                 text-align: left;
                 padding: 20px;
             }
@@ -125,12 +127,11 @@ function printReview($username) {
             <div class="controls">
                 <h1>Account</h1><br>
                 <a class="btn" href='reset-password.php'>Reset Password</a><br><br>
-                <a class="btn" href="logout.php">Sign Out</a>
-                <br><br>
+                <a class="btn" href="logout.php">Sign Out</a><br><br>
                 <a class="btn" href="delete.php">Delete Account</a><br><br><br><br>
             </div>
             <div class="reviews">
-                    <center><h1>Your Reviews</h1></center>
+                    <center><h1>Your Reviews</h1></center><br><hr>
                     <br>
                     <?php printReview($_SESSION['username']);?>
             </div>
