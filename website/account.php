@@ -24,13 +24,29 @@ require_once "config.php";
 function printReview($username) {
     global $conn;
  
-    $sql = "SELECT * FROM review, airport WHERE username = '$username' AND refID = iataCode";
+    $sql = "SELECT * FROM review WHERE username = '$username'";
     $result = $conn->query($sql);
  
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            // echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp" . $row['name'] . " - " . $row['city'] . ", " . $row['country'];
-            echo "<br>" . $row['name']; // POSSIBLE TODO: make this a link???
+           $type = $row['type'];
+           $code = "";
+           $page = $type .".php";
+           $id = $row['refID'];
+           if($type == "airport"){
+              $code = "iataCode";
+           }else if($type == "airline"){
+              $code = "iataCode";
+           }else if($type == "airplane"){
+              $code = "icaoCode";
+           }
+           $sql = "SELECT * FROM $type WHERE $code = '$id'";
+           $nameR = $conn->query($sql);
+           $name = "";
+           while($r = $nameR->fetch_assoc()){
+              $name = $r['name'];
+           }
+            echo "<br><a href='$page?$code=$id'>" . $name . "</a>";
             echo "<div style='background-color: #eee; margin-top: 10px;' id='review". $row['hashID'] ."'>";
 			echo "<br>&nbsp&nbsp&nbsp&nbsp&nbspRating: " . $row["rating"] . "/5";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . explode('-', $row["time"])[1] . "/" . explode(' ', explode('-', $row["time"])[2])[0] . "/" . explode('-', $row["time"])[0] . "<br>";
