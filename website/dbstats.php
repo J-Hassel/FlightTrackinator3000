@@ -32,7 +32,15 @@ function printStats($table) {
             echo "There are currently <b>" . $row[0] . "</b> airlines in operation";
             $sql = $conn->query("SELECT COUNT(DISTINCT country) FROM airline");
             $row = $sql->fetch_row();
-            echo " from <b>" . $row[0] . "</b> different countries.";
+            echo " from <b>" . $row[0] . "</b> different countries.<br>";
+            $sql = $conn->query(
+                "SELECT name, iataCode, COUNT(*) AS count
+                FROM airline INNER JOIN flight
+                ON airline.iataCode = flight.airline
+                GROUP BY airline
+                ORDER BY COUNT(*) DESC LIMIT 1");
+            $row = $sql->fetch_assoc();
+            echo "The busiest airline is <b>" . $row['name'] . " (" . $row['iataCode'] . ")</b> with <b>" . $row['count'] . "</b> flights currently en-route." ;
             break;
         case "airport":
 
@@ -133,7 +141,7 @@ function printStats($table) {
                 font-size: 14pt;
                 border: 1px solid rgba(0,0,0,.5);
                 width: 1310px;
-                height: 570px;
+                height: 590px;
                 background-color: rgba(255,255,255,.8);
                 margin: 0 auto;
                 margin-top: 100px;
