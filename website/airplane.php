@@ -36,9 +36,10 @@ require_once "config.php";
           width: 0.5%;
           font-size: 9pt;
       }
-      .floatLeft { width: 49%; float: left; margin-left: 10px; }
-      .floatRight {width: 49%; float: right; margin-right: 10px;}
-      .container { overflow: hidden; }
+
+      .container { 
+        margin-left: 10px;
+        margin-right: 10px; }
     </style>
   </head>
   <body>
@@ -96,7 +97,7 @@ if ($result->num_rows > 0) {
    include_once("review.php");
    printReview("airplane", $icaoCode);
    $from = $link->query("SELECT * FROM flight WHERE aircraft_icao = '$icaoCode'");
-   echo "<h1 style='padding: 5px; margin-top: 10px; font-size: 16pt;'> Currently active " . utf8_encode($airplane) . " flights ($from->num_rows flights)</h1>";
+   echo "<div class='container'><h1 style='padding: 5px; margin-top: 10px; font-size: 16pt;'> Currently active " . utf8_encode($airplane) . " flights ($from->num_rows flights)</h1>";
    $locs = array();
    if ($from->num_rows > 0) {
           $count = mysqli_field_count($link);
@@ -109,14 +110,25 @@ if ($result->num_rows > 0) {
            // output data of each row
            while($row = $from->fetch_assoc()) {
               $line = "<tr>";
-              for($x = 0; $x < $count; $x++){
-                if(mysqli_field_name($from, $x) == "destination" or mysqli_field_name($from, $x) == "source"){
+              for($x = 0; $x < $count; $x++)
+              {
+                if(mysqli_field_name($from, $x) == "destination" or mysqli_field_name($from, $x) == "source")
+                {
                     $variable = $row[mysqli_field_name($from, $x)];
                     $line = $line . "<td><a href='airport.php?icaoCode=$variable'>" . $variable . "</a></td>";
-                }else if(mysqli_field_name($from, $x) == "aircraft_id"){
+                }
+                else if(mysqli_field_name($from, $x) == "aircraft_id")
+                {
                     $variable = $row[mysqli_field_name($from, $x)];
                     $line = $line . "<td><a href='trackflight.php?aircraft_id=$variable'>" . $variable . "</a></td>";
-                }else{
+                }
+                else if(mysqli_field_name($from, $x) == "airline")
+                {
+                    $variable = $row[mysqli_field_name($from, $x)];
+                    $line = $line . "<td><a href='airline.php?iataCode=$variable'>" . $variable . "</a></td>";
+                }
+                else
+                {
                     $line = $line . "<td>" . $row[mysqli_field_name($from, $x)] . "</td>";
                 }
               }
@@ -127,7 +139,7 @@ if ($result->num_rows > 0) {
    }else{
        echo "<p style=\"padding-left: 20px;\">There are no currently active flights with this airplane.</p>";
    }
-   echo "</center>";
+   echo "</div></center>";
 ;
 } else {
    echo "0 results";
