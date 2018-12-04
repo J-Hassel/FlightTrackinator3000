@@ -150,6 +150,9 @@ function build_table($result, $link, $table_name)
             }else if($table_name == "flight" and (mysqli_field_name($result, $x) == "source" OR mysqli_field_name($result, $x) == "destination")){
                $iataCode = $row[mysqli_field_name($result, $x)];
                $line = $line . "<td><a href='airport.php?iataCode=$iataCode'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
+            }else if($table_name =="flight" and mysqli_field_name($result, $x) == "airline"){
+               $airline = $row[mysqli_field_name($result, $x)];
+               $line = $line . "<td><a href='airline.php?iataCode=$airline'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
             }else{
                $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
             }
