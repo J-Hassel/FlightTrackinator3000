@@ -130,7 +130,9 @@ function printStats($table) {
             .db-stats
             {
                 background-image: url(bg-home.jpg);
-                background-repeat: no-repeat;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
                 background-size: cover;
             }
 
