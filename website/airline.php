@@ -151,7 +151,7 @@ $link->close();
     function initMap() {
 
       var map = new google.maps.Map(
-          document.getElementById('map'), {zoom: 4, center: {lat: -28.024, lng: 140.887}});
+          document.getElementById('map'), {zoom: 3, center: {lat: 37, lng: -96}});
       // The marker, positioned at flightLocation
 
       var planeSymbol = {
