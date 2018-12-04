@@ -22,11 +22,7 @@ $page = basename($_SERVER['PHP_SELF']);
  				</a>
 			</div>
          <style>
-         .main-nav{
-            width: 60%;
-            margin-left: auto;
-            margin-right: auto;
-         }
+         
          </style>
 			<ul class="main-nav">
             <li ><a href="#" onclick='update();'>Update</a></li>
