@@ -378,6 +378,7 @@ function createReview() {
    ?>"
    var rating = userRating['create'];
    var comment = document.getElementById("comment").value;
+   comment = comment.replace(/'/g, "''");
    var dataString = "createReview=1&rating=" + rating + "&comment=" + comment + "&id=" + id + "&type=" + type;
     $.ajax({
       url:"review.php",
