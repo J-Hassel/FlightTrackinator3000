@@ -128,7 +128,7 @@ function printReview($type, $id) {
 			}
 			echo "<br>";
    
-         echo $updateDiv;
+         //echo $updateDiv;
          echo "<div style='background-color: #eee; margin-top: 10px;' id='review". $row['hashID'] ."'>";
 			echo "<br>&nbsp&nbsp&nbsp&nbsp&nbspRating: " . $row["rating"] . "/5";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . explode('-', $row["time"])[1] . "/" . explode(' ', explode('-', $row["time"])[2])[0] . "/" . explode('-', $row["time"])[0] . "<br>";
