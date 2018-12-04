@@ -143,18 +143,31 @@ function build_table($result, $link, $table_name)
        // output data of each row
        while($row = $result->fetch_assoc()) {
           $line = "<tr>";
-         for($x = 0; $x < $count; $x++){
-            if(mysqli_field_name($result, $x) == $headVal){
+         for($x = 0; $x < $count; $x++)
+         {
+            if(mysqli_field_name($result, $x) == $headVal)
+            {
                $aircraftID = $row[mysqli_field_name($result, $x)];
                $line = $line . "<td><a href='$page?$var=$aircraftID'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
-            }else if($table_name == "flight" and (mysqli_field_name($result, $x) == "source" OR mysqli_field_name($result, $x) == "destination")){
+            }
+            else if($table_name == "flight" and (mysqli_field_name($result, $x) == "source" OR mysqli_field_name($result, $x) == "destination"))
+            {
                $iataCode = $row[mysqli_field_name($result, $x)];
                $line = $line . "<td><a href='airport.php?iataCode=$iataCode'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
-            }else if($table_name =="flight" and mysqli_field_name($result, $x) == "airline"){
+            }
+            else if($table_name =="flight" and mysqli_field_name($result, $x) == "airline")
+            {
                $airline = $row[mysqli_field_name($result, $x)];
                $line = $line . "<td><a href='airline.php?iataCode=$airline'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
-            }else{
-               $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
+            }
+            else if($table_name =="flight" and mysqli_field_name($result, $x) == "aircraft_icao")
+            {
+              $airplane = $row[mysqli_field_name($result, $x)];
+              $line = $line . "<td><a href='airplane.php?iataCode=$airplane'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
+            }
+            else
+            {
+              $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
             }
          }
          echo utf8_encode($line)."</tr>";
