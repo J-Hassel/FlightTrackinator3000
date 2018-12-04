@@ -129,7 +129,7 @@ function printReview($type, $id) {
 			echo "<br>";
    
          //echo $updateDiv;
-         echo "<div style='background-color: #eee; margin-top: 10px;' id='review". $row['hashID'] ."'>";
+         echo "<div class='review' id='review". $row['hashID'] ."'>";
 			echo "<br>&nbsp&nbsp&nbsp&nbsp&nbspRating: " . $row["rating"] . "/5";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . explode('-', $row["time"])[1] . "/" . explode(' ', explode('-', $row["time"])[2])[0] . "/" . explode('-', $row["time"])[0] . "<br>";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbspComment: " . $row["comment"] . "<br><br>";
@@ -292,6 +292,13 @@ textarea
 .rating span.checked ~ span label {
     background:#F90;
     color:#FFF;
+}
+.review {
+   background-color: #eee;
+   margin-top: 10px;
+   margin-left: 20px;
+   margin-right: 20px;
+   padding: 10px;
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
