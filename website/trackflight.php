@@ -94,15 +94,30 @@ if ($result->num_rows > 0) {
    // output data of each row
    while($row = $result->fetch_assoc()) {
       $line = "<tr>";
-      for($x = 0; $x < $count; $x++){
-        if(mysqli_field_name($result, $x) == "destination"){
-            $variable = $row[mysqli_field_name($result, $x)];
-            $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
-        } else if(mysqli_field_name($result, $x) == "source"){
+      for($x = 0; $x < $count; $x++)
+      {
+        if(mysqli_field_name($result, $x) == "destination" or mysqli_field_name($result, $x) == "source")
+        {
             $variable = $row[mysqli_field_name($result, $x)];
             $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
         }
-        else {
+        else if(mysqli_field_name($result, $x) == "aircraft_id")
+        {
+            $variable = $row[mysqli_field_name($result, $x)];
+            $line = $line . "<td><a href='trackflight.php?aircraft_id=$variable'>" . $variable . "</a></td>";
+        }
+        else if(mysqli_field_name($result, $x) == "airline")
+        {
+            $variable = $row[mysqli_field_name($result, $x)];
+            $line = $line . "<td><a href='airline.php?iataCode=$variable'>" . $variable . "</a></td>";
+        }
+        else if(mysqli_field_name($result, $x) == "aircraft_icao")
+        {
+            $variable = $row[mysqli_field_name($result, $x)];
+            $line = $line . "<td><a href='airplane.php?icaoCode=$variable'>" . $variable . "</a></td>";
+        }
+        else
+        {
             $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
         }
       }

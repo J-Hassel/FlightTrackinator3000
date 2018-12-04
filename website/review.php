@@ -374,6 +374,11 @@ function createReview() {
       type = 'airline';
       id = "<?php echo $iataCode ?>";
       "<?php
+   }else if($page == 'airplane.php'){
+      ?>"
+      type = 'airplane';
+      id = "<?php echo $icaoCode ?>";
+      "<?php
    }
    ?>"
    var rating = userRating['create'];
