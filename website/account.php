@@ -46,7 +46,7 @@ function printReview($username) {
            while($r = $nameR->fetch_assoc()){
               $name = $r['name'];
            }
-            echo "<br><a href='$page?$code=$id'>" . $name . "</a>";
+            echo "<br><a href='$page?$code=$id'>" . utf8_encode($name) . "</a>";
             echo "<div style='background-color: #eee; margin-top: 10px;' id='review". $row['hashID'] ."'>";
 			echo "<br>&nbsp&nbsp&nbsp&nbsp&nbspRating: " . $row["rating"] . "/5";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . explode('-', $row["time"])[1] . "/" . explode(' ', explode('-', $row["time"])[2])[0] . "/" . explode('-', $row["time"])[0] . "<br>";
