@@ -130,9 +130,9 @@ function printReview($type, $id) {
    
          //echo $updateDiv;
          echo "<div class='review' id='review". $row['hashID'] ."'>";
-			echo "<br>&nbsp&nbsp&nbsp&nbsp&nbspRating: " . $row["rating"] . "/5";
+			echo "<br>Rating: " . $row["rating"] . "/5";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . explode('-', $row["time"])[1] . "/" . explode(' ', explode('-', $row["time"])[2])[0] . "/" . explode('-', $row["time"])[0] . "<br>";
-			echo "&nbsp&nbsp&nbsp&nbsp&nbspComment: " . $row["comment"] . "<br><br>";
+			echo "Comment: " . $row["comment"] . "<br><br>";
          echo "</div>";
 		}
 	}else{
@@ -278,7 +278,7 @@ textarea
     width:30px;
     height:30px;
     text-align:center;
-    color:#FFF;
+    color: #FFF;
     background:#ccc;
     font-size:30px;
     margin-right:2px;
@@ -295,6 +295,7 @@ textarea
 }
 .review {
    background-color: #eee;
+   word-wrap: break-word;
    margin-top: 10px;
    margin-left: 20px;
    margin-right: 20px;

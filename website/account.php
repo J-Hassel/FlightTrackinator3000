@@ -47,10 +47,10 @@ function printReview($username) {
               $name = $r['name'];
            }
             echo "<br><a href='$page?$code=$id'>" . utf8_encode($name) . "</a>";
-            echo "<div style='background-color: #eee; margin-top: 10px;' id='review". $row['hashID'] ."'>";
-			echo "<br>&nbsp&nbsp&nbsp&nbsp&nbspRating: " . $row["rating"] . "/5";
+            echo "<div style='word-wrap: break-word; background-color: #eee; padding: 10px;' id='review". $row['hashID'] ."'>";
+			echo "<br>Rating: " . $row["rating"] . "/5";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . explode('-', $row["time"])[1] . "/" . explode(' ', explode('-', $row["time"])[2])[0] . "/" . explode('-', $row["time"])[0] . "<br>";
-			echo "&nbsp&nbsp&nbsp&nbsp&nbspComment: " . $row["comment"] . "<br><br>";
+			echo "Comment: " . $row["comment"] . "<br><br>";
             echo "</div>";
        }
     } else {
