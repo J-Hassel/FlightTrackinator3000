@@ -163,36 +163,22 @@ $link->close();
         anchor: new google.maps.Point(400, 400)
       };
       var infoWindow = new google.maps.InfoWindow(), marker, airportMarker, i;
-      for(i = 0; i < locations.length; i++){
-          if(i == 0){
-            airportMarker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][0],locations[i][1]),
-                title: names[i],
-                map: map,
-                zIndex: locations.length + 1
-            });
-            google.maps.event.addListener(airportMarker, 'click', (function(airportMarker, i) {
-                  return function() {
-                      infoWindow.setContent(infoWindowContent[i]);
-                      infoWindow.open(map, airportMarker);
-                  }
-              })(airportMarker, i));
-          }else{
-              planeSymbol.rotation = parseInt(headings[i]);
-              marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][0],locations[i][1]),
-                title: names[i],
-                icon: planeSymbol,
-                map: map
-            });
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-               return function() {
-                   infoWindow.setContent(infoWindowContent[i]);
-                   infoWindow.open(map, marker);
-               }
-            })(marker, i));
-          }
-
+      for(i = 0; i < locations.length; i++)
+      {
+            planeSymbol.rotation = parseInt(headings[i]);
+            marker = new google.maps.Marker({
+              position: new google.maps.LatLng(locations[i][0],locations[i][1]),
+              title: names[i],
+              icon: planeSymbol,
+              map: map
+          });
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+             return function() {
+                 infoWindow.setContent(infoWindowContent[i]);
+                 infoWindow.open(map, marker);
+             }
+          })(marker, i));
+          
       }
       airportMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
     };
