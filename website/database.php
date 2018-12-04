@@ -184,6 +184,15 @@ if ($link->connect_error) {
 } 
 if(isset($_GET['table_name'])) {
    $table_name = $_GET['table_name'];
+
+   /* Attempted start of range query... this is out of place */
+   // if(isset($_GET["altitude"])) {
+   //    $val = $_GET["altitude"];
+   //    $minVal = $_GET["altitude"] - 500;
+   //    $maxVal = $_GET["altitude"] + 500;
+   //    $sql = $sql . " WHERE $val BETWEEN '$minVal' AND '$maxVal'";
+   // }
+
    if(count($_GET) > 2){
       $sql = "SELECT * FROM $table_name";
       $count = 0;
