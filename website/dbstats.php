@@ -52,7 +52,7 @@ function printStats($table) {
                 ORDER BY COUNT(*) DESC LIMIT 1"
             );
             $row = $sql->fetch_assoc();
-            echo "The current most popular source is the <b>" . $row["name"] . " (" . $row['iataCode'] . ")</b>, located in <b>" . $row['city'] . ", " . $row['country'] . "</b><br>"; 
+            echo "The current busiest source is the <b>" . $row["name"] . " (" . $row['iataCode'] . ")</b>, located in <b>" . $row['city'] . ", " . $row['country'] . "</b><br>"; 
             echo "There are currently <b>" . $row['count'] . "</b> flights in the air who started their journey at <b>" . $row['iataCode'] . "</b>.<br>";
             
 
@@ -64,7 +64,7 @@ function printStats($table) {
                 ORDER BY COUNT(*) DESC LIMIT 1"
             );
             $row = $sql->fetch_assoc();
-            echo "The current most popular destination is the <b>" . $row["name"] . " (" . $row['iataCode'] . ")</b>, located in <b>" . $row['city'] . ", " . $row['country'] . "</b><br>"; 
+            echo "The current busiest destination is the <b>" . $row["name"] . " (" . $row['iataCode'] . ")</b>, located in <b>" . $row['city'] . ", " . $row['country'] . "</b><br>"; 
             echo "There are currently <b>" . $row['count'] . "</b> flights in the air who will end their journey at <b>" . $row['iataCode'] . "</b>.";
             break;
         case "flight":
