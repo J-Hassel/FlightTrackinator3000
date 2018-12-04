@@ -15,7 +15,7 @@ require_once "config.php";
 
 <html>
   <head>
-    <title>Airport</title>
+    <title>Airplane</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <style>
       /* Set the size of the div element that contains the map */
@@ -62,20 +62,19 @@ require_once "config.php";
             return is_object($properties) ? $properties->name : null;
         }
         // Display name of airport
-        $iataCode = $_GET['iataCode'];
-        $sql = "SELECT * FROM airline WHERE iataCode = '$iataCode'";
+        $icaoCode = $_GET['icaoCode'];
+        $sql = "SELECT * FROM airplane WHERE icaoCode = '$icaoCode'";
         $result = $link->query($sql);
         $row = $result->fetch_assoc();
-        $airline = $row[mysqli_field_name($result, 0)];
-        $country = $row[mysqli_field_name($result, 2)];
-        echo "<center><h1 style=\"padding: 20px;\">" . utf8_encode($airline) . " - " . utf8_encode($country) . "</h1>";
+        $airplane = $row[mysqli_field_name($result, 0)];
+        echo "<center><h1 style=\"padding: 20px;\">" . utf8_encode($airplane) . "</h1>";
         ?>
       </div>
 
     <!--The div element for the map -->
     <div id="map"></div>
 <?php
-$sql = "SELECT * FROM airline WHERE iataCode = '$iataCode'";
+$sql = "SELECT * FROM airplane WHERE icaoCode = '$icaoCode'";
 $result = $link->query($sql);
 if ($result->num_rows > 0) {
   $count = mysqli_field_count($link);
@@ -95,9 +94,9 @@ if ($result->num_rows > 0) {
    }
    echo "</table>";
    include_once("review.php");
-   printReview("airline", $iataCode);
-   $from = $link->query("SELECT * FROM flight WHERE airline = '$iataCode'");
-   echo "<h1 style='padding: 5px; margin-top: 10px; font-size: 16pt;'> Currently active " . utf8_encode($airline) . "flights ($from->num_rows flights)</h1>";
+   printReview("airplane", $icaoCode);
+   $from = $link->query("SELECT * FROM flight WHERE aircraft_icao = '$icaoCode'");
+   echo "<h1 style='padding: 5px; margin-top: 10px; font-size: 16pt;'> Currently active " . utf8_encode($airplane) . " flights ($from->num_rows flights)</h1>";
    $locs = array();
    if ($from->num_rows > 0) {
           $count = mysqli_field_count($link);
@@ -113,7 +112,7 @@ if ($result->num_rows > 0) {
               for($x = 0; $x < $count; $x++){
                 if(mysqli_field_name($from, $x) == "destination" or mysqli_field_name($from, $x) == "source"){
                     $variable = $row[mysqli_field_name($from, $x)];
-                    $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
+                    $line = $line . "<td><a href='airport.php?icaoCode=$variable'>" . $variable . "</a></td>";
                 }else if(mysqli_field_name($from, $x) == "aircraft_id"){
                     $variable = $row[mysqli_field_name($from, $x)];
                     $line = $line . "<td><a href='trackflight.php?aircraft_id=$variable'>" . $variable . "</a></td>";
@@ -126,7 +125,7 @@ if ($result->num_rows > 0) {
         }
         echo "</table>";
    }else{
-       echo "<p style=\"padding-left: 20px;\">This airline currently has no active flights</p>";
+       echo "<p style=\"padding-left: 20px;\">There are no currently active flights with this airplane.</p>";
    }
    echo "</center>";
 ;

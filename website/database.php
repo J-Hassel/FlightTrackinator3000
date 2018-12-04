@@ -163,7 +163,7 @@ function build_table($result, $link, $table_name)
             else if($table_name =="flight" and mysqli_field_name($result, $x) == "aircraft_icao")
             {
               $airplane = $row[mysqli_field_name($result, $x)];
-              $line = $line . "<td><a href='airplane.php?iataCode=$airplane'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
+              $line = $line . "<td><a href='airplane.php?icaoCode=$airplane'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
             }
             else
             {
