@@ -111,7 +111,8 @@ if ($result->num_rows > 0) {
            // output data of each row
            while($row = $from->fetch_assoc()) {
               $line = "<tr>";
-              for($x = 0; $x < $count; $x++){
+              for($x = 0; $x < $count; $x++)
+              {
                 if(mysqli_field_name($from, $x) == "destination" or mysqli_field_name($from, $x) == "source")
                 {
                     $variable = $row[mysqli_field_name($from, $x)];

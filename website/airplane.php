@@ -115,7 +115,7 @@ if ($result->num_rows > 0) {
                 if(mysqli_field_name($from, $x) == "destination" or mysqli_field_name($from, $x) == "source")
                 {
                     $variable = $row[mysqli_field_name($from, $x)];
-                    $line = $line . "<td><a href='airport.php?icaoCode=$variable'>" . $variable . "</a></td>";
+                    $line = $line . "<td><a href='airport.php?iataCode=$variable'>" . $variable . "</a></td>";
                 }
                 else if(mysqli_field_name($from, $x) == "aircraft_id")
                 {
