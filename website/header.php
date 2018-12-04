@@ -23,7 +23,7 @@ $page = basename($_SERVER['PHP_SELF']);
 			</div>
          <style>
          .main-nav{
-            width: 50%;
+            width: 60%;
             margin-left: auto;
             margin-right: auto;
          }
