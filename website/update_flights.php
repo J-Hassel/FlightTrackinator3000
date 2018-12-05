@@ -39,4 +39,9 @@
       
    }
    $link->close();
+
+	#TODO
+	#refreshes the page after update of the DB is completed
+	#$url = $_SERVER['PHP_SELF'];
+	#header("Refresh:0; url=$url");
 ?>

@@ -165,6 +165,16 @@ function build_table($result, $link, $table_name)
               $airplane = $row[mysqli_field_name($result, $x)];
               $line = $line . "<td><a href='airplane.php?icaoCode=$airplane'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
             }
+            else if($table_name =="airline" and mysqli_field_name($result, $x) == "iataCode")
+            {
+              $airline = $row[mysqli_field_name($result, $x)];
+              $line = $line . "<td><a href='airline.php?iataCode=$airline'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
+            }
+            else if($table_name =="airplane" and mysqli_field_name($result, $x) == "icaoCode")
+            {
+              $airplane = $row[mysqli_field_name($result, $x)];
+              $line = $line . "<td><a href='airplane.php?icaoCode=$airplane'>" . $row[mysqli_field_name($result, $x)] . "</a></td>";
+            }
             else
             {
               $line = $line . "<td>" . $row[mysqli_field_name($result, $x)] . "</td>";
