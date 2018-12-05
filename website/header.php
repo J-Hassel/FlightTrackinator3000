@@ -11,8 +11,10 @@ $page = basename($_SERVER['PHP_SELF']);
           function update() {
                 $.ajax({
                   url:"update_flights.php",
+                  success: function(){
+                     window.location.reload(true);
+                  }
                });
-            window.location.reload(true);
          };
       </script>
 		<div class="row">
