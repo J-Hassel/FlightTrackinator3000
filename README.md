@@ -45,5 +45,8 @@ https://docs.google.com/document/d/1dud7Kbyqt72uGKtSy3UDmaUCRZssGpazEYY_nWfnuRY/
 # Statistics
 ![Alt text](https://raw.githubusercontent.com/J-Hassel/FlightTrackinator3000/master/example-images/stats-page.JPG "Statistics Page")
 
+# Account
+![Alt text](https://raw.githubusercontent.com/J-Hassel/FlightTrackinator3000/master/example-images/account-page.JPG "Account Page")
+
 # Reviews
 ![Alt text](https://raw.githubusercontent.com/J-Hassel/FlightTrackinator3000/master/example-images/user-review.JPG "User Review Box")
