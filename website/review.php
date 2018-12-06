@@ -306,7 +306,7 @@ textarea
 </head>
 <body>
 
-<button class="open-button" onclick="openForm('myForm')">Create Review</button>
+<button class="open-button" onclick="openForm('myForm')">Leave a Review</button>
 
 <div class="form-popup" id="myForm">
   <form class="form-container">
