@@ -93,10 +93,10 @@ function printReview($type, $id) {
 		while($row = $result->fetch_assoc()) {
 			echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp" . $row["username"];
 
+      $updateDiv = "";
 			/* User commands if they have previously left a review */
 			if($row["username"] == $_SESSION['username']) {
 				$review_exists = true;
-        $updateDiv = "";
 
 
 				/* Update Review Option */
@@ -128,7 +128,7 @@ function printReview($type, $id) {
 			}
 			echo "<br>";
    
-         //echo $updateDiv;
+         echo $updateDiv;
          echo "<div class='review' id='review". $row['hashID'] ."'>";
 			echo "<br>Rating: " . $row["rating"] . "/5";
 			echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . explode('-', $row["time"])[1] . "/" . explode(' ', explode('-', $row["time"])[2])[0] . "/" . explode('-', $row["time"])[0] . "<br>";
@@ -419,7 +419,7 @@ function updateReview(hashID){
       var div = document.getElementById(hashID);
       var rating = userRating[hashID + "rating"];
       var comment = div.getElementsByTagName("textarea")[0].value;
-      console.log(comment);
+      comment = comment.replace(/'/g, "''");
       var dataString = "updateReview=1&rating=" + rating + "&comment=" + comment + "&hashID=" + hashID;
       $.ajax({
       url:"review.php",
