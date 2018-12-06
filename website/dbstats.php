@@ -27,12 +27,11 @@ function printStats($table) {
     
     switch($table) {
         case "airline":
-            $sql = $conn->query("SELECT COUNT(name) FROM airline");
+            $sql = $conn->query("SELECT COUNT(DISTINCT airline.iataCode), COUNT(DISTINCT country) FROM airline,flight WHERE airline.iataCode = flight.airline");
             $row = $sql->fetch_row();
             echo "There are currently <b>" . $row[0] . "</b> airlines in operation";
-            $sql = $conn->query("SELECT COUNT(DISTINCT country) FROM airline");
-            $row = $sql->fetch_row();
-            echo " from <b>" . $row[0] . "</b> different countries.<br>";
+            echo " from <b>" . $row[1] . "</b> different countries.<br>";
+
             $sql = $conn->query(
                 "SELECT name, iataCode, COUNT(*) AS count
                 FROM airline INNER JOIN flight
