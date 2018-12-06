@@ -42,6 +42,10 @@ function printStats($table) {
             echo "The busiest airline is <b>" . $row['name'] . " (" . $row['iataCode'] . ")</b> with <b>" . $row['count'] . "</b> flights currently en-route." ;
             break;
         case "airport":
+            $sql = $conn->query("SELECT COUNT(DISTINCT airport.iataCode) FROM airport, flight WHERE airport.iataCode = flight.source");
+            $row = $sql->fetch_row();
+            echo "There are currently <b>" . $row[0] . "</b> airports in operation.<br>";
+
 
 			$sql = $conn->query(
                 "SELECT name, iataCode, city, country, destination, COUNT(*) AS count
@@ -142,10 +146,10 @@ function printStats($table) {
                 font-size: 14pt;
                 border: 1px solid rgba(0,0,0,.5);
                 width: 1310px;
-                height: 590px;
+                height: 620px;
                 background-color: rgba(255,255,255,.8);
                 margin: 0 auto;
-                margin-top: 100px;
+                margin-top: 80px;
                 padding: 50px;
                 border-radius: 15px;
             }
