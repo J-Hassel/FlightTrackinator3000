@@ -1,8 +1,5 @@
 # FlightTrackinator3000
 
-# PAPER
-https://docs.google.com/document/d/1dud7Kbyqt72uGKtSy3UDmaUCRZssGpazEYY_nWfnuRY/edit?usp=sharing
-
 # Home
 ![Alt text](https://raw.githubusercontent.com/J-Hassel/FlightTrackinator3000/master/example-images/home-page.JPG "Home Page")
 
